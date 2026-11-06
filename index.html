@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101a35">
+<title>KhaCerdas — Academic Assistant</title>
+<style>
+:root{
+ --bg:#f4f6fb;--surface:#fff;--text:#17213b;--muted:#78839b;
+ --primary:#3158d8;--primary2:#647ff0;--line:#e6eaf2;
+ --nav:#101a35;--green:#168b67;--orange:#d98a2b;
+ --shadow:0 8px 28px rgba(22,38,80,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:255px;background:var(--nav);color:white;padding:22px 15px;position:fixed;inset:0 auto 0 0;overflow:auto;z-index:10}
+.brand{display:flex;align-items:center;gap:12px;padding:5px 8px 25px}
+.brand-logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#7189ff,#3158d8);display:grid;place-items:center;font-size:22px;font-weight:900}
+.brand h2{font-size:17px;margin:0}.brand small{color:#aeb9d6}
+.nav-label{font-size:10px;letter-spacing:1.4px;color:#8290b4;margin:17px 10px 8px}
+.nav-btn{width:100%;display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#c5cee3;padding:12px 13px;border-radius:11px;text-align:left;font-size:13px;margin:3px 0}
+.nav-btn:hover,.nav-btn.active{background:#26365e;color:white}
+.nav-icon{width:20px;text-align:center;font-size:16px}
+.sidebar-foot{margin:25px 8px;color:#8290b4;font-size:11px;line-height:1.6}
+.main{margin-left:255px;width:calc(100% - 255px);min-width:0}
+.topbar{height:68px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5}
+.topbar-title{font-weight:750;font-size:15px}
+.top-right{display:flex;align-items:center;gap:12px}
+.avatar{width:36px;height:36px;border-radius:50%;background:#e5eaff;color:var(--primary);display:grid;place-items:center;font-weight:800}
+.mobile-menu{display:none;border:0;background:none;font-size:22px}
+.content{padding:28px;max-width:1500px;margin:auto}
+.page{display:none}.page.active{display:block}
+h1{font-size:26px;margin:0 0 8px;letter-spacing:-.5px}
+h2{font-size:19px;margin:0 0 13px}
+h3{font-size:15px;margin:0 0 10px}
+p{line-height:1.7;color:var(--muted);font-size:13px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 22px}
+.hero{background:linear-gradient(115deg,#17264d,#3158d8 75%,#7289ed);border-radius:20px;padding:30px;color:white;position:relative;overflow:hidden;margin-bottom:22px}
+.hero:after{content:"✦";position:absolute;right:35px;top:0;font-size:130px;color:#ffffff16}
+.hero h1{font-size:27px;max-width:650px}.hero p{color:#dce5ff;max-width:600px}
+.hero .btn{background:white;color:#294dc0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:19px;box-shadow:var(--shadow);min-width:0}
+.stat{display:flex;align-items:center;justify-content:space-between}
+.stat strong{font-size:25px;display:block;margin-top:8px}
+.stat-icon{width:42px;height:42px;border-radius:13px;background:#edf1ff;display:grid;place-items:center;font-size:20px}
+.card p{margin:7px 0 0}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 14px}
+.btn{border:0;border-radius:10px;background:var(--primary);color:white;padding:10px 15px;font-size:12px;font-weight:700}
+.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#edf1ff;color:var(--primary)}
+.btn.green{background:var(--green)}
+.btn.danger{background:#fff0f0;color:#c44b4b}
+.btn.small{padding:7px 10px}
+.chip{display:inline-block;padding:6px 10px;border-radius:30px;background:#edf1ff;color:#3158d8;font-size:10px;font-weight:700}
+.lesson-card{display:flex;gap:13px;align-items:flex-start;cursor:pointer}
+.lesson-icon{width:43px;height:43px;flex-shrink:0;border-radius:12px;background:#edf1ff;display:grid;place-items:center;font-size:20px}
+.lesson-card h3{margin-top:3px}
+.lesson-card:hover{border-color:#aabaff}
+.search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:white;outline:none;margin:8px 0 15px}
+.search:focus,input:focus,textarea:focus,select:focus{border-color:#8097fa}
+.field{margin:12px 0}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px;background:white;color:var(--text);outline:none}
+.field textarea{min-height:110px;resize:vertical;line-height:1.6}
+.lesson-body{background:white;border:1px solid var(--line);padding:22px;border-radius:15px;line-height:1.8}
+.lesson-body h2{margin-top:22px}
+.lesson-body h3{margin-top:17px}
+.lesson-body p,.lesson-body li{font-size:13px;color:#536078}
+.lesson-body ul,.lesson-body ol{padding-left:22px}
+.lesson-body table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
+.lesson-body td,.lesson-body th{border:1px solid var(--line);padding:9px;text-align:left}
+.lesson-body th{background:#f1f4fb}
+.callout{padding:13px 15px;background:#eef3ff;border-left:3px solid var(--primary);border-radius:8px;font-size:12px;line-height:1.7;margin:15px 0}
+.warning{background:#fff7e9;border-left-color:#df9b38}
+.resource{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.resource a{color:var(--primary);text-decoration:none;font-size:12px;font-weight:700}
+.resource a:hover{text-decoration:underline}
+.progress{height:8px;background:#edf0f6;border-radius:10px;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#3158d8,#8297ff);border-radius:10px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}
+.tab{border:1px solid var(--line);background:white;padding:8px 12px;border-radius:9px;font-size:11px}
+.tab.active{background:#eaf0ff;border-color:#9eafff;color:var(--primary)}
+.item-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.item-row:last-child{border:0}
+.item-row strong{font-size:13px}
+.item-row small{display:block;color:var(--muted);margin-top:5px;font-size:11px}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+.footer{text-align:center;padding:25px;color:var(--muted);font-size:11px}
+.modal{display:none;position:fixed;inset:0;background:#101a3588;z-index:30;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.modal-box{width:min(600px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:22px}
+.modal-head{display:flex;justify-content:space-between;align-items:center}
+.close{border:0;background:#f0f2f7;border-radius:8px;padding:7px 11px}
+.quiz-option{display:block;width:100%;text-align:left;padding:12px;border:1px solid var(--line);border-radius:9px;background:white;margin:8px 0;font-size:12px}
+.quiz-option.selected{border-color:var(--primary);background:#eef2ff}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .sidebar{transform:translateX(-100%);transition:.25s;width:270px}
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;width:100%}
+ .topbar{padding:0 15px;height:60px}
+ .mobile-menu{display:block}
+ .content{padding:17px}
+ .hero{padding:23px 19px}.hero h1{font-size:23px}
+ .grid,.grid.two,.grid.three{grid-template-columns:1fr 1fr;gap:10px}
+ .card{padding:14px}.stat strong{font-size:21px}
+ h1{font-size:22px}
+}
+@media(max-width:390px){.grid,.grid.two,.grid.three{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+ <div class="brand">
+  <div class="brand-logo">K</div>
+  <div><h2>KhaCerdas</h2><small>Academic Assistant</small></div>
+ </div>
+ <div class="nav-label">MENU UTAMA</div>
+ <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>Beranda</button>
+ <button class="nav-btn" data-page="learn"><span class="nav-icon">▤</span>Pusat Pembelajaran</button>
+ <button class="nav-btn" data-page="documents"><span class="nav-icon">▣</span>Panduan Karya Ilmiah</button>
+ <button class="nav-btn" data-page="format"><span class="nav-icon">📐</span>Format Penulisan</button>
+ <button class="nav-btn" data-page="citation"><span class="nav-icon">❝</span>Sitasi & Footnote</button>
+ <button class="nav-btn" data-page="references"><span class="nav-icon">🌐</span>Pusat Referensi</button>
+ <button class="nav-btn" data-page="method"><span class="nav-icon">⚙</span>Metodologi Penelitian</button>
+ <div class="nav-label">RUANG AKADEMIK</div>
+ <button class="nav-btn" data-page="workspace"><span class="nav-icon">✎</span>Academic Workspace</button>
+ <button class="nav-btn" data-page="examples"><span class="nav-icon">▧</span>Contoh Dokumen</button>
+ <button class="nav-btn" data-page="quiz"><span class="nav-icon">✓</span>Kuis & Latihan</button>
+ <button class="nav-btn" data-page="ai"><span class="nav-icon">✧</span>AI Academic Tutor</button>
+ <button class="nav-btn" data-page="progress"><span class="nav-icon">◷</span>Progres Belajar</button>
+ <div class="nav-label">INFORMASI</div>
+ <button class="nav-btn" data-page="about"><span class="nav-icon">ⓘ</span>Tentang KhaCerdas</button>
+ <div class="sidebar-foot">KhaCerdas v1.0<br>Belajar, meneliti, dan berkarya.</div>
+</aside>
+
+<main class="main">
+ <header class="topbar">
+  <div class="top-right">
+   <button class="mobile-menu" id="menuBtn">☰</button>
+   <span class="topbar-title" id="topTitle">Beranda</span>
+  </div>
+  <div class="top-right"><span id="userName" style="font-size:12px">Mahasiswa</span><div class="avatar" id="avatar">M</div></div>
+ </header>
+ <div class="content">
+
+<section class="page active" id="home">
+ <div class="hero">
+  <span class="chip" style="background:#ffffff24;color:white">ACADEMIC LEARNING PLATFORM</span>
+  <h1>Bangun kemampuan akademikmu bersama KhaCerdas.</h1>
+  <p>Pelajari cara menyusun makalah, skripsi, artikel ilmiah, mengelola referensi, dan memahami metodologi penelitian secara bertahap.</p>
+  <button class="btn" onclick="showPage('learn')">Mulai Belajar →</button>
+ </div>
+ <div class="grid">
+  <div class="card stat"><div><span class="sub">Materi tersedia</span><strong>12+</strong></div><div class="stat-icon">📚</div></div>
+  <div class="card stat"><div><span class="sub">Referensi akademik</span><strong>12</strong></div><div class="stat-icon">🌐</div></div>
+  <div class="card stat"><div><span class="sub">Kuis latihan</span><strong>5</strong></div><div class="stat-icon">✍️</div></div>
+  <div class="card stat"><div><span class="sub">Materi selesai</span><strong id="homeDone">0</strong></div><div class="stat-icon">🏆</div></div>
+ </div>
+ <div class="section-head"><h2>Jelajahi pembelajaran</h2><button class="btn light small" onclick="showPage('learn')">Lihat semua</button></div>
+ <div class="grid three">
+  <div class="card lesson-card" onclick="openLesson('makalah')"><div class="lesson-icon">📄</div><div><h3>Menyusun Makalah</h3><p>Struktur, isi, dan teknik penulisan.</p></div></div>
+  <div class="card lesson-card" onclick="openLesson('skripsi')"><div class="lesson-icon">🎓</div><div><h3>Menyusun Skripsi</h3><p>Memahami bab dan tahapan penelitian.</p></div></div>
+  <div class="card lesson-card" onclick="openLesson('artikel')"><div class="lesson-icon">📰</div><div><h3>Artikel Ilmiah</h3><p>Menulis dan menyiapkan publikasi.</p></div></div>
+ </div>
+ <div class="section-head"><h2>Progres belajarmu</h2><button class="btn light small" onclick="showPage('progress')">Detail</button></div>
+ <div class="card"><div style="display:flex;justify-content:space-between"><strong style="font-size:13px">Penyelesaian materi</strong><span id="homePercent">0%</span></div><div class="progress"><span id="homeBar" style="width:0%"></span></div><p>Terus belajar sedikit demi sedikit untuk meningkatkan pemahaman akademikmu.</p></div>
+</section>
+
+<section class="page" id="learn">
+ <h1>Pusat Pembelajaran</h1><p class="sub">Pilih materi yang ingin kamu pelajari.</p>
+ <input class="search" id="lessonSearch" placeholder="Cari materi pembelajaran..." oninput="renderLessons()">
+ <div class="grid two" id="lessonList"></div>
+</section>
+
+<section class="page" id="documents">
+ <h1>Panduan Karya Ilmiah</h1><p class="sub">Kenali jenis dokumen akademik dan struktur penyusunannya.</p>
+ <div class="grid two">
+  <div class="card lesson-card" onclick="openLesson('makalah')"><div class="lesson-icon">📄</div><div><h3>Makalah</h3><p>Struktur BAB I, II, III, dan daftar pustaka.</p><span class="chip">Karya tulis</span></div></div>
+  <div class="card lesson-card" onclick="openLesson('skripsi')"><div class="lesson-icon">🎓</div><div><h3>Skripsi</h3><p>Pedoman umum penyusunan tugas akhir.</p><span class="chip">Tugas akhir</span></div></div>
+  <div class="card lesson-card" onclick="openLesson('artikel')"><div class="lesson-icon">📰</div><div><h3>Artikel ilmiah</h3><p>Struktur artikel untuk publikasi ilmiah.</p><span class="chip">Publikasi</span></div></div>
+  <div class="card lesson-card" onclick="openLesson('laporan')"><div class="lesson-icon">🧪</div><div><h3>Laporan praktikum</h3><p>Tujuan, teori, prosedur, data, dan analisis.</p><span class="chip">Praktikum</span></div></div>
+ </div>
+</section>
+
+<section class="page" id="format">
+ <h1>Format & Teknik Penulisan</h1><p class="sub">Pelajari pengaturan dokumen agar rapi, konsisten, dan mudah dibaca.</p>
+ <div class="callout warning"><b>Perhatian:</b> Tidak ada satu format yang berlaku untuk seluruh kampus di Indonesia. Angka berikut merupakan contoh format umum. Pedoman kampus, fakultas, dosen, atau jurnal tujuan harus selalu diutamakan.</div>
+ <div class="lesson-body">
+  <h2>1. Pengaturan umum dokumen</h2>
+  <table><tr><th>Komponen</th><th>Contoh pengaturan</th></tr>
+  <tr><td>Ukuran kertas</td><td>A4 (21 × 29,7 cm)</td></tr>
+  <tr><td>Jenis huruf</td><td>Times New Roman</td></tr>
+  <tr><td>Ukuran huruf isi</td><td>12 pt</td></tr>
+  <tr><td>Spasi baris</td><td>1,5 spasi</td></tr>
+  <tr><td>Perataan paragraf</td><td>Rata kiri-kanan (Justify)</td></tr>
+  <tr><td>Indentasi awal paragraf</td><td>1,25 cm</td></tr>
+  <tr><td>Warna teks</td><td>Hitam</td></tr>
+  <tr><td>Orientasi</td><td>Portrait</td></tr></table>
+  <h2>2. Contoh pengaturan margin</h2>
+  <table><tr><th>Sisi halaman</th><th>Ukuran contoh</th></tr><tr><td>Kiri</td><td>4 cm</td></tr><tr><td>Atas</td><td>3 cm</td></tr><tr><td>Kanan</td><td>3 cm</td></tr><tr><td>Bawah</td><td>3 cm</td></tr></table>
+  <p>Margin kiri sering dibuat lebih lebar untuk kebutuhan penjilidan. Namun, ukuran margin harus disesuaikan dengan pedoman masing-masing institusi.</p>
+  <h2>3. Cara mengatur di Microsoft Word</h2>
+  <ol><li>Buka dokumen Microsoft Word.</li><li>Pilih menu <b>Layout → Size → A4</b>.</li><li>Pilih <b>Layout → Margins → Custom Margins</b>.</li><li>Masukkan margin sesuai pedoman.</li><li>Pilih seluruh teks dengan Ctrl+A.</li><li>Pilih font Times New Roman dan ukuran 12 pt jika pedoman mengharuskannya.</li><li>Buka pengaturan Paragraph untuk mengatur spasi 1,5, Justify, dan First Line Indent.</li><li>Gunakan Styles untuk membuat Heading 1, Heading 2, dan Heading 3.</li></ol>
+  <h2>4. Hierarki judul</h2>
+  <table><tr><th>Tingkat</th><th>Contoh</th></tr><tr><td>Bab</td><td>BAB I PENDAHULUAN</td></tr><tr><td>Subbab</td><td>1.1 Latar Belakang</td></tr><tr><td>Sub-subbab</td><td>1.1.1 Perkembangan Teknologi</td></tr></table>
+  <p>Contoh tampilan umum: judul bab tebal dan rata tengah, subbab tebal dan rata kiri, isi paragraf mengikuti format dokumen. Ukuran dan kapitalisasi tetap mengikuti pedoman.</p>
+  <h2>5. Penomoran halaman</h2>
+  <ul><li>Bagian awal dokumen dapat menggunakan angka Romawi kecil: i, ii, iii, dan seterusnya.</li><li>Bagian utama dapat menggunakan angka Arab: 1, 2, 3, dan seterusnya.</li><li>Halaman sampul sering tidak menampilkan nomor halaman.</li><li>Gunakan Section Break untuk membedakan format penomoran bagian awal dan isi.</li></ul>
+  <h2>6. Tabel dan gambar</h2>
+  <ul><li>Judul tabel umumnya diletakkan di atas tabel.</li><li>Keterangan gambar umumnya diletakkan di bawah gambar.</li><li>Nomor tabel dan gambar harus konsisten.</li><li>Jika menggunakan sumber dari pihak lain, cantumkan sumbernya.</li><li>Jelaskan tabel atau gambar di dalam paragraf, jangan hanya menampilkannya.</li></ul>
+  <h2>7. Bahasa dan paragraf akademik</h2>
+  <ul><li>Gunakan bahasa baku dan kalimat efektif.</li><li>Hindari bahasa percakapan dalam isi karya ilmiah.</li><li>Setiap paragraf sebaiknya memiliki satu gagasan utama.</li><li>Hindari klaim tanpa sumber atau bukti.</li><li>Periksa ejaan, tanda baca, dan konsistensi istilah.</li></ul>
+  <h2>8. Perbedaan format berdasarkan dokumen</h2>
+  <table><tr><th>Dokumen</th><th>Hal yang perlu diperhatikan</th></tr><tr><td>Makalah</td><td>Cover, pendahuluan, pembahasan, penutup, daftar pustaka.</td></tr><tr><td>Skripsi</td><td>Bagian awal, bab penelitian, hasil, pembahasan, lampiran.</td></tr><tr><td>Artikel ilmiah</td><td>Template jurnal, abstrak, kata kunci, metode, hasil, referensi.</td></tr><tr><td>Laporan praktikum</td><td>Tujuan, teori, alat, bahan, prosedur, hasil, analisis.</td></tr></table>
+  <h2>9. Checklist sebelum dikumpulkan</h2>
+  <ul><li>Ukuran kertas dan margin sesuai pedoman.</li><li>Font, ukuran, spasi, dan paragraf konsisten.</li><li>Nomor halaman benar.</li><li>Judul bab dan subbab konsisten.</li><li>Tabel dan gambar memiliki keterangan.</li><li>Semua kutipan memiliki sumber.</li><li>Daftar pustaka sesuai sitasi.</li><li>Dokumen sudah diperiksa ejaan dan tata bahasanya.</li></ul>
+ </div>
+</section>
+
+<section class="page" id="citation">
+ <h1>Sitasi & Footnote</h1><p class="sub">Pelajari cara menggunakan sumber secara benar dan bertanggung jawab.</p>
+ <div class="lesson-body">
+  <h2>1. Apa itu sitasi?</h2><p>Sitasi adalah penyebutan sumber informasi yang digunakan dalam tulisan. Sitasi membantu pembaca menelusuri asal gagasan, data, atau pernyataan yang digunakan penulis.</p>
+  <h2>2. Perbedaan sitasi, footnote, dan daftar pustaka</h2>
+  <ul><li><b>Sitasi:</b> penanda sumber di dalam teks atau catatan.</li><li><b>Footnote:</b> catatan di bagian bawah halaman.</li><li><b>Daftar pustaka:</b> kumpulan sumber yang dirujuk dalam karya tulis.</li></ul>
+  <h2>3. Contoh gaya sitasi</h2>
+  <h3>APA 7</h3><p>Contoh parafrasa: Penggunaan teknologi informasi dapat mendukung proses pembelajaran (Nama Penulis, 2023).</p>
+  <h3>IEEE</h3><p>Contoh: Teknologi informasi mendukung proses pengolahan data [1].</p>
+  <h3>Chicago Notes & Bibliography</h3><p>Gaya ini menggunakan catatan kaki untuk menunjukkan sumber rujukan.</p>
+  <h2>4. Contoh footnote</h2><p>Contoh ilustratif: Nama Penulis, <i>Judul Buku</i> (Kota: Penerbit, 2023), 25.</p>
+  <div class="callout warning">Nama penulis, judul, penerbit, tahun, dan halaman pada contoh ini hanya ilustrasi, bukan referensi nyata.</div>
+  <h2>5. Kutipan langsung dan tidak langsung</h2>
+  <p><b>Kutipan langsung:</b> mengambil kalimat dari sumber dengan mempertahankan kata-kata aslinya dan mencantumkan rujukan sesuai gaya yang digunakan.</p>
+  <p><b>Kutipan tidak langsung:</b> menyampaikan kembali gagasan sumber dengan bahasa sendiri, tanpa mengubah makna, dan tetap mencantumkan sumber.</p>
+  <h2>6. Prinsip parafrasa yang benar</h2>
+  <ol><li>Pahami isi sumber terlebih dahulu.</li><li>Tutup sumber dan tulis kembali gagasannya dengan struktur kalimat sendiri.</li><li>Pastikan makna tidak berubah.</li><li>Bandingkan dengan sumber asli.</li><li>Cantumkan sitasi.</li></ol>
+  <h2>7. Membuat daftar pustaka</h2><p>Pastikan semua sumber yang dikutip tercantum dalam daftar pustaka sesuai aturan gaya sitasi. Jangan memasukkan sumber yang tidak benar-benar digunakan jika pedoman tidak mengizinkannya.</p>
+ </div>
+</section>
+
+<section class="page" id="references">
+ <h1>Pusat Referensi Akademik</h1><p class="sub">Temukan sumber bacaan, publikasi, jurnal, dan alat pengelola referensi.</p>
+ <input class="search" id="refSearch" placeholder="Cari portal referensi..." oninput="renderReferences()">
+ <div class="grid two" id="referenceList"></div>
+ <div class="callout warning">Google Scholar adalah mesin pencari literatur, bukan sertifikat kualitas artikel. Periksa penulis, metode, penerbit, tahun, relevansi, dan keabsahan jurnal sebelum menggunakan sumber.</div>
+</section>
+
+<section class="page" id="method">
+ <h1>Metodologi Penelitian</h1><p class="sub">Kenali pendekatan penelitian dan cara menentukan metode yang sesuai.</p>
+ <div class="lesson-body">
+  <h2>1. Penelitian kualitatif</h2><p>Penelitian kualitatif bertujuan memahami fenomena secara mendalam melalui data deskriptif, seperti wawancara, observasi, dan dokumen.</p>
+  <b>Contoh:</b><p>Analisis pengalaman mahasiswa dalam menggunakan sistem informasi akademik.</p>
+  <h2>2. Penelitian kuantitatif</h2><p>Penelitian kuantitatif menggunakan data numerik untuk menguji hubungan, perbedaan, atau pengaruh antarvariabel.</p>
+  <b>Contoh:</b><p>Pengaruh penggunaan aplikasi pembelajaran terhadap hasil belajar mahasiswa.</p>
+  <h2>3. Penelitian Research and Development (R&D)</h2><p>R&D adalah pendekatan penelitian yang berorientasi pada pengembangan produk, kemudian menilai kelayakan atau efektivitasnya sesuai tujuan dan rancangan penelitian.</p>
+  <h2>4. Model 4D</h2>
+  <table><tr><th>Tahap</th><th>Penjelasan</th></tr><tr><td>Define</td><td>Menganalisis kebutuhan dan masalah.</td></tr><tr><td>Design</td><td>Merancang produk dan instrumen.</td></tr><tr><td>Develop</td><td>Mengembangkan dan menguji produk.</td></tr><tr><td>Disseminate</td><td>Menyebarluaskan produk sesuai cakupan penelitian.</td></tr></table>
+  <h2>5. Model ADDIE</h2>
+  <ul><li><b>Analysis:</b> menganalisis kebutuhan.</li><li><b>Design:</b> merancang solusi.</li><li><b>Development:</b> mengembangkan produk.</li><li><b>Implementation:</b> menerapkan produk.</li><li><b>Evaluation:</b> mengevaluasi hasil.</li></ul>
+  <h2>6. Contoh alur R&D aplikasi</h2>
+  <ol><li>Identifikasi masalah yang dialami calon pengguna.</li><li>Analisis kebutuhan aplikasi.</li><li>Rancang fitur, antarmuka, dan alur penggunaan.</li><li>Buat prototipe dan produk aplikasi.</li><li>Lakukan validasi ahli sesuai instrumen.</li><li>Uji coba kepada pengguna yang sesuai kriteria.</li><li>Analisis hasil dan revisi produk.</li><li>Laporkan hasil pengembangan secara transparan.</li></ol>
+  <h2>7. Menentukan metode penelitian</h2><p>Pilih metode berdasarkan rumusan masalah, tujuan, jenis data, karakteristik objek, dan produk yang ingin dihasilkan. Jangan memilih metode hanya karena dianggap paling mudah.</p>
+ </div>
+</section>
+
+<section class="page" id="workspace">
+ <h1>Academic Workspace</h1><p class="sub">Tempat menyimpan ide, catatan, dan rancangan penelitianmu di perangkat ini.</p>
+ <div class="card">
+  <h3>Tambah catatan akademik</h3>
+  <div class="field"><label>Judul catatan</label><input id="noteTitle" placeholder="Contoh: Ide judul penelitian"></div>
+  <div class="field"><label>Kategori</label><select id="noteCategory"><option>Ide Penelitian</option><option>Catatan Kuliah</option><option>Referensi</option><option>Draft Skripsi</option><option>To-do Akademik</option></select></div>
+  <div class="field"><label>Isi catatan</label><textarea id="noteBody" placeholder="Tulis ide atau catatanmu di sini..."></textarea></div>
+  <button class="btn" onclick="addNote()">Simpan Catatan</button>
+ </div>
+ <div class="section-head"><h2>Catatan tersimpan</h2><span class="chip" id="noteCount">0 catatan</span></div>
+ <div class="card" id="notesList"></div>
+</section>
+
+<section class="page" id="examples">
+ <h1>Contoh Kerangka Dokumen</h1><p class="sub">Gunakan contoh struktur sebagai panduan awal, lalu sesuaikan dengan pedoman resmi.</p>
+ <div class="card">
+  <h3>Contoh kerangka makalah</h3>
+  <pre style="white-space:pre-wrap;font-size:12px;line-height:1.8;color:#536078">HALAMAN SAMPUL
+KATA PENGANTAR
+DAFTAR ISI
+
+BAB I PENDAHULUAN
+1.1 Latar Belakang
+1.2 Rumusan Masalah
+1.3 Tujuan Penulisan
+1.4 Manfaat Penulisan
+
+BAB II PEMBAHASAN
+2.1 Landasan Teori
+2.2 Pembahasan Masalah
+
+BAB III PENUTUP
+3.1 Kesimpulan
+3.2 Saran
+
+DAFTAR PUSTAKA
+LAMPIRAN (jika diperlukan)</pre>
+  <button class="btn light small" onclick="copyText('HALAMAN SAMPUL\\nKATA PENGANTAR\\nDAFTAR ISI\\nBAB I PENDAHULUAN\\n1.1 Latar Belakang\\n1.2 Rumusan Masalah\\n1.3 Tujuan Penulisan\\n1.4 Manfaat Penulisan\\nBAB II PEMBAHASAN\\n2.1 Landasan Teori\\n2.2 Pembahasan Masalah\\nBAB III PENUTUP\\n3.1 Kesimpulan\\n3.2 Saran\\nDAFTAR PUSTAKA\\nLAMPIRAN')">Salin kerangka</button>
+ </div>
+ <div class="card" style="margin-top:15px">
+  <h3>Contoh kerangka skripsi</h3>
+  <pre style="white-space:pre-wrap;font-size:12px;line-height:1.8;color:#536078">BAGIAN AWAL
+Halaman Judul
+Lembar Persetujuan
+Pernyataan Keaslian
+Abstrak
+Kata Pengantar
+Daftar Isi
+
+BAB I PENDAHULUAN
+BAB II TINJAUAN PUSTAKA
+BAB III METODE PENELITIAN
+BAB IV HASIL DAN PEMBAHASAN
+BAB V PENUTUP
+
+DAFTAR PUSTAKA
+LAMPIRAN</pre>
+  <button class="btn light small" onclick="copyText('BAGIAN AWAL\\nHalaman Judul\\nLembar Persetujuan\\nPernyataan Keaslian\\nAbstrak\\nKata Pengantar\\nDaftar Isi\\nBAB I PENDAHULUAN\\nBAB II TINJAUAN PUSTAKA\\nBAB III METODE PENELITIAN\\nBAB IV HASIL DAN PEMBAHASAN\\nBAB V PENUTUP\\nDAFTAR PUSTAKA\\nLAMPIRAN')">Salin kerangka</button>
+ </div>
+ <div class="card" style="margin-top:15px">
+  <h3>Contoh kerangka artikel ilmiah</h3>
+  <pre style="white-space:pre-wrap;font-size:12px;line-height:1.8;color:#536078">JUDUL
+Nama Penulis dan Afiliasi
+ABSTRAK
+Kata Kunci
+1. PENDAHULUAN
+2. METODE PENELITIAN
+3. HASIL DAN PEMBAHASAN
+4. KESIMPULAN
+UCAPAN TERIMA KASIH (jika ada)
+DAFTAR PUSTAKA</pre>
+ </div>
+</section>
+
+<section class="page" id="quiz">
+ <h1>Kuis & Latihan</h1><p class="sub">Uji pemahamanmu melalui latihan singkat.</p>
+ <div class="card" id="quizBox">
+  <div style="display:flex;justify-content:space-between"><span class="chip" id="quizNumber">Soal 1 dari 5</span><span id="quizScore" style="font-size:12px">Skor: 0</span></div>
+  <h2 id="question" style="margin-top:22px">Memuat soal...</h2>
+  <div id="options"></div>
+  <div id="feedback" style="font-size:12px;margin:12px 0"></div>
+  <button class="btn" id="nextQuestion" onclick="nextQuiz()" disabled>Soal berikutnya →</button>
+ </div>
+</section>
+
+<section class="page" id="ai">
+ <h1>AI Academic Tutor</h1><p class="sub">Ruang bantuan untuk menyusun pertanyaan dan belajar secara bertanggung jawab.</p>
+ <div class="callout warning">Fitur ini belum terhubung ke layanan AI. Jangan memasukkan API key rahasia ke dalam file HTML. Untuk mengaktifkan AI, diperlukan backend atau Edge Function yang aman.</div>
+ <div class="card">
+  <h3>Siapkan pertanyaan akademik</h3>
+  <div class="field"><label>Topik</label><select id="aiTopic"><option>Penulisan makalah</option><option>Penyusunan skripsi</option><option>Metodologi penelitian</option><option>Sitasi dan referensi</option><option>Pengembangan aplikasi R&D</option><option>Bahasa akademik</option></select></div>
+  <div class="field"><label>Pertanyaan</label><textarea id="aiQuestion" placeholder="Contoh: Jelaskan perbedaan penelitian kualitatif dan kuantitatif dengan contoh..."></textarea></div>
+  <button class="btn" onclick="prepareAI()">Siapkan pertanyaan</button>
+  <div class="field"><label>Hasil pertanyaan untuk disalin</label><textarea id="aiPrompt" readonly placeholder="Pertanyaan yang sudah disiapkan akan muncul di sini."></textarea></div>
+  <button class="btn light" onclick="copyText(document.getElementById('aiPrompt').value)">Salin pertanyaan</button>
+ </div>
+</section>
+
+<section class="page" id="progress">
+ <h1>Progres Belajar</h1><p class="sub">Pantau materi yang telah kamu selesaikan.</p>
+ <div class="grid two">
+  <div class="card"><span class="sub">Materi selesai</span><strong id="progressDone" style="font-size:28px;display:block">0</strong></div>
+  <div class="card"><span class="sub">Persentase progres</span><strong id="progressPercent" style="font-size:28px;display:block">0%</strong></div>
+ </div>
+ <div class="section-head"><h2>Daftar materi</h2></div>
+ <div class="card" id="progressList"></div>
+ <div style="margin-top:15px"><button class="btn danger small" onclick="resetProgress()">Reset progres belajar</button></div>
+</section>
+
+<section class="page" id="about">
+ <h1>Tentang KhaCerdas</h1><p class="sub">Academic Assistant untuk mendukung proses belajar dan penulisan ilmiah.</p>
+ <div class="hero"><h1>KhaCerdas</h1><p>Belajar menulis. Berpikir kritis. Mengembangkan penelitian.</p></div>
+ <div class="card">
+  <h2>Tujuan aplikasi</h2>
+  <p>KhaCerdas dirancang sebagai media pembelajaran akademik yang membantu mahasiswa memahami proses penyusunan karya ilmiah, penggunaan referensi, teknik sitasi, dan metodologi penelitian.</p>
+  <h2>Prinsip penggunaan</h2>
+  <ul><li>Gunakan sumber yang dapat diverifikasi.</li><li>Jangan mengarang data atau hasil penelitian.</li><li>Periksa kembali setiap kutipan dan referensi.</li><li>Ikuti pedoman institusi dan arahan dosen.</li><li>Jadikan aplikasi sebagai pendamping belajar, bukan pengganti proses berpikir.</li></ul>
+  <h2>Data dan privasi</h2>
+  <p>Versi ini menyimpan catatan dan progres di penyimpanan browser perangkat. Data tidak otomatis tersinkron ke perangkat lain. Menghapus data browser dapat menghilangkan catatan lokal.</p>
+  <h2>Pengembang</h2><p>KhaCerdas — Academic Assistant<br>Versi 1.0</p>
+ </div>
+</section>
+
+<div class="footer">© 2026 KhaCerdas Academic Assistant · Belajar dengan jujur dan bertanggung jawab.</div>
+ </div>
+</main>
+</div>
+
+<div class="modal" id="lessonModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="modalTitle">Materi</h2><button class="close" onclick="closeLesson()">✕</button></div>
+  <div id="modalContent" class="lesson-body"></div>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:15px">
+   <button class="btn light" onclick="closeLesson()">Tutup</button>
+   <button class="btn green" id="completeBtn" onclick="completeLesson()">Tandai selesai ✓</button>
+  </div>
+ </div>
+</div>
+
+<script>
+const lessons=[
+ {id:"makalah",title:"Panduan Menyusun Makalah",icon:"📄",desc:"Memahami struktur dan tahapan membuat makalah.",category:"Karya Ilmiah",
+ body:`<h2>Pengertian Makalah</h2><p>Makalah merupakan karya tulis yang membahas suatu topik berdasarkan kajian pustaka, analisis, atau hasil pengamatan sesuai tujuan penulisannya.</p>
+ <h2>Struktur makalah</h2><ol><li>Halaman sampul.</li><li>Kata pengantar.</li><li>Daftar isi.</li><li>BAB I Pendahuluan.</li><li>BAB II Pembahasan.</li><li>BAB III Penutup.</li><li>Daftar pustaka.</li><li>Lampiran jika diperlukan.</li></ol>
+ <h2>Tahap penyusunan</h2><ol><li>Pilih topik yang jelas dan relevan.</li><li>Tentukan rumusan masalah.</li><li>Cari sumber akademik yang dapat dipercaya.</li><li>Buat kerangka pembahasan.</li><li>Tulis berdasarkan sumber dan analisis sendiri.</li><li>Tambahkan sitasi pada gagasan yang dirujuk.</li><li>Periksa kembali isi dan format.</li></ol>
+ <h2>Contoh rumusan masalah</h2><p>Bagaimana pemanfaatan teknologi informasi dalam mendukung aktivitas belajar mahasiswa?</p>
+ <div class="callout">Tips: pastikan setiap rumusan masalah dijawab dalam pembahasan dan kesimpulan.</div>`},
+ {id:"skripsi",title:"Panduan Menyusun Skripsi",icon:"🎓",desc:"Memahami bagian dan tahapan penelitian skripsi.",category:"Karya Ilmiah",
+ body:`<h2>Pengertian skripsi</h2><p>Skripsi merupakan karya ilmiah yang disusun mahasiswa sebagai salah satu persyaratan penyelesaian pendidikan sarjana sesuai aturan perguruan tinggi.</p>
+ <h2>Struktur umum skripsi</h2><ul><li>Bagian awal: halaman judul, persetujuan, pernyataan, abstrak, kata pengantar, daftar isi.</li><li>BAB I: Pendahuluan.</li><li>BAB II: Tinjauan Pustaka.</li><li>BAB III: Metode Penelitian.</li><li>BAB IV: Hasil dan Pembahasan.</li><li>BAB V: Penutup.</li><li>Daftar Pustaka dan Lampiran.</li></ul>
+ <h2>Isi setiap bab</h2><p><b>BAB I:</b> latar belakang, identifikasi atau batasan masalah jika diperlukan, rumusan masalah, tujuan, dan manfaat.</p><p><b>BAB II:</b> teori, penelitian terdahulu, kerangka berpikir, dan hipotesis jika relevan.</p><p><b>BAB III:</b> jenis penelitian, lokasi, subjek, instrumen, teknik pengumpulan dan analisis data.</p><p><b>BAB IV:</b> hasil penelitian dan interpretasi berdasarkan teori atau data.</p><p><b>BAB V:</b> kesimpulan yang menjawab rumusan masalah dan saran yang relevan.</p>
+ <h2>Hal penting</h2><p>Struktur dan nama bab dapat berbeda antarprogram studi. Pedoman resmi kampus merupakan acuan utama.</p>`},
+ {id:"artikel",title:"Menulis Artikel Ilmiah",icon:"📰",desc:"Belajar menyiapkan artikel untuk publikasi.",category:"Publikasi",
+ body:`<h2>Pengertian artikel ilmiah</h2><p>Artikel ilmiah merupakan tulisan yang menyajikan gagasan, kajian, atau hasil penelitian dengan pendekatan ilmiah. Artikel dapat diterbitkan dalam jurnal ilmiah.</p>
+ <h2>Struktur umum</h2><ol><li>Judul.</li><li>Nama penulis dan afiliasi.</li><li>Abstrak.</li><li>Kata kunci.</li><li>Pendahuluan.</li><li>Metode penelitian.</li><li>Hasil dan pembahasan.</li><li>Kesimpulan.</li><li>Daftar pustaka.</li></ol>
+ <h2>Proses publikasi</h2><ol><li>Tentukan topik dan kontribusi artikel.</li><li>Pilih jurnal yang sesuai bidang.</li><li>Baca template dan author guidelines.</li><li>Sesuaikan naskah dengan format jurnal.</li><li>Periksa etika publikasi dan keaslian.</li><li>Kirim naskah melalui sistem jurnal.</li><li>Tanggapi proses review dan revisi.</li></ol>
+ <div class="callout">Jurnal adalah terbitan berkala yang memuat artikel. Artikel merupakan satu tulisan individual yang diterbitkan di dalam jurnal.</div>`},
+ {id:"laporan",title:"Laporan Praktikum",icon:"🧪",desc:"Menyusun laporan berdasarkan kegiatan praktikum.",category:"Karya Ilmiah",
+ body:`<h2>Pengertian</h2><p>Laporan praktikum menyajikan tujuan, proses, pengamatan, data, dan analisis dari kegiatan praktikum.</p>
+ <h2>Struktur umum</h2><ol><li>Halaman judul.</li><li>Tujuan praktikum.</li><li>Landasan teori.</li><li>Alat dan bahan.</li><li>Prosedur kerja.</li><li>Hasil pengamatan.</li><li>Analisis dan pembahasan.</li><li>Kesimpulan.</li><li>Daftar pustaka.</li><li>Lampiran.</li></ol>
+ <h2>Tips</h2><p>Catat data secara teliti, tampilkan hasil pengamatan dengan jelas, dan jangan mengubah hasil agar terlihat sesuai harapan.</p>`},
+ {id:"parafrase",title:"Parafrasa dan Bahasa Akademik",icon:"✍️",desc:"Menyampaikan gagasan dengan bahasa ilmiah.",category:"Penulisan",
+ body:`<h2>Bahasa akademik</h2><p>Bahasa akademik bersifat jelas, logis, objektif, formal, dan menggunakan istilah secara konsisten.</p>
+ <h2>Parafrasa</h2><p>Parafrasa adalah penyampaian kembali gagasan sumber menggunakan susunan bahasa sendiri tanpa mengubah makna.</p>
+ <h2>Contoh ilustratif</h2><p><b>Kalimat awal:</b> Teknologi informasi membantu proses penyampaian informasi secara lebih cepat.</p><p><b>Parafrasa:</b> Pemanfaatan teknologi informasi memungkinkan informasi disampaikan dengan lebih efisien.</p>
+ <div class="callout warning">Contoh ini hanya menunjukkan perubahan susunan kalimat. Jika gagasan berasal dari sumber tertentu, sitasi tetap diperlukan.</div>
+ <h2>Hindari</h2><ul><li>Mengganti beberapa kata dengan sinonim tanpa memahami makna.</li><li>Menyalin tulisan tanpa tanda kutip atau sitasi.</li><li>Mengubah makna asli sumber.</li><li>Membuat referensi fiktif.</li></ul>`},
+ {id:"rumusan",title:"Membuat Rumusan Masalah",icon:"🎯",desc:"Menyusun pertanyaan penelitian yang fokus.",category:"Penelitian",
+ body:`<h2>Pengertian</h2><p>Rumusan masalah adalah pertanyaan yang menjadi fokus penelitian dan harus dijawab melalui proses penelitian.</p>
+ <h2>Ciri rumusan masalah yang baik</h2><ul><li>Jelas dan tidak ambigu.</li><li>Fokus dan tidak terlalu luas.</li><li>Berhubungan dengan tujuan penelitian.</li><li>Dapat dijawab dengan data atau kajian.</li></ul>
+ <h2>Contoh</h2><p>Bagaimana kelayakan aplikasi pengingat salat berdasarkan hasil validasi ahli dan uji coba pengguna?</p>
+ <p>Contoh tersebut cocok sebagai gambaran awal penelitian pengembangan aplikasi, tetapi perlu disesuaikan dengan produk dan rancangan penelitian sebenarnya.</p>`},
+ {id:"referensi",title:"Mencari Referensi Ilmiah",icon:"🔍",desc:"Menelusuri dan mengevaluasi sumber penelitian.",category:"Referensi",
+ body:`<h2>Tempat mencari sumber</h2><p>Gunakan Google Scholar, GARUDA, SINTA, DOAJ, IEEE Xplore, Crossref, dan repositori perguruan tinggi sesuai bidang penelitian.</p>
+ <h2>Cara mengevaluasi sumber</h2><ol><li>Periksa identitas penulis.</li><li>Periksa tahun publikasi dan relevansi.</li><li>Baca abstrak dan metode.</li><li>Periksa penerbit atau jurnal.</li><li>Periksa DOI dan metadata bila tersedia.</li><li>Telusuri referensi yang digunakan.</li></ol>
+ <h2>Pengelola referensi</h2><p>Zotero dan Mendeley membantu menyimpan sumber serta menyusun sitasi. Tetap periksa kembali hasil format referensinya.</p>`},
+ {id:"abstrak",title:"Menulis Abstrak",icon:"📑",desc:"Meringkas tujuan, metode, hasil, dan kesimpulan.",category:"Penulisan",
+ body:`<h2>Fungsi abstrak</h2><p>Abstrak memberikan gambaran singkat mengenai isi karya ilmiah agar pembaca memahami pokok penelitian.</p>
+ <h2>Unsur abstrak</h2><ol><li>Latar belakang atau konteks singkat.</li><li>Tujuan penelitian.</li><li>Metode penelitian.</li><li>Hasil utama.</li><li>Kesimpulan.</li></ol>
+ <p>Jumlah kata, bahasa, dan format abstrak harus mengikuti panduan kampus atau jurnal tujuan. Jangan menuliskan hasil yang belum diperoleh.</p>`},
+ {id:"variabel",title:"Variabel Penelitian",icon:"📊",desc:"Memahami variabel dalam penelitian.",category:"Penelitian",
+ body:`<h2>Pengertian</h2><p>Variabel adalah karakteristik atau konsep yang diamati, diukur, atau dianalisis dalam penelitian.</p>
+ <h2>Jenis variabel kuantitatif</h2><ul><li>Variabel independen: faktor yang diduga memengaruhi.</li><li>Variabel dependen: hasil atau faktor yang dipengaruhi.</li><li>Variabel kontrol: faktor yang dijaga atau diperhitungkan.</li></ul>
+ <h2>Contoh</h2><p>Penelitian pengaruh intensitas penggunaan aplikasi belajar terhadap hasil belajar mahasiswa. Intensitas penggunaan menjadi variabel independen, sedangkan hasil belajar menjadi variabel dependen.</p>`},
+ {id:"instrumen",title:"Instrumen Pengumpulan Data",icon:"📝",desc:"Memilih alat pengumpulan data penelitian.",category:"Penelitian",
+ body:`<h2>Jenis instrumen</h2><ul><li>Kuesioner atau angket.</li><li>Pedoman wawancara.</li><li>Lembar observasi.</li><li>Tes atau soal evaluasi.</li><li>Dokumentasi.</li></ul>
+ <h2>Prinsip penyusunan</h2><p>Instrumen harus sesuai tujuan penelitian, indikator yang diukur, karakteristik responden, dan metode analisis. Uji validitas dan reliabilitas dilakukan sesuai pendekatan yang digunakan.</p>`},
+ {id:"etika",title:"Etika Penelitian dan Publikasi",icon:"⚖️",desc:"Memahami integritas akademik.",category:"Etika",
+ body:`<h2>Prinsip integritas akademik</h2><ul><li>Jujur dalam mengumpulkan dan melaporkan data.</li><li>Mencantumkan sumber gagasan dan kutipan.</li><li>Tidak memalsukan hasil penelitian.</li><li>Menghormati privasi dan persetujuan responden.</li><li>Mengungkapkan konflik kepentingan bila ada.</li><li>Tidak melakukan plagiarisme.</li></ul>
+ <h2>Penggunaan AI</h2><p>Periksa kebijakan institusi dan jurnal mengenai penggunaan AI. Penulis tetap bertanggung jawab atas isi, ketepatan fakta, data, dan referensi yang disajikan.</p>`}
+];
+
+const references=[
+ ["Google Scholar","Mesin pencari literatur akademik dari berbagai penerbit dan repositori.","https://scholar.google.com/","🔎"],
+ ["GARUDA","Portal pencarian publikasi ilmiah Indonesia.","https://garuda.kemdiktisaintek.go.id/","🇮🇩"],
+ ["SINTA","Informasi jurnal dan indeks publikasi ilmiah Indonesia.","https://sinta.kemdiktisaintek.go.id/","📚"],
+ ["DOAJ","Direktori jurnal akses terbuka.","https://doaj.org/","🌍"],
+ ["IEEE Xplore","Publikasi bidang teknik, komputer, dan teknologi.","https://ieeexplore.ieee.org/","💻"],
+ ["Crossref","Pencarian metadata publikasi dan DOI.","https://search.crossref.org/","🔗"],
+ ["PubMed","Database literatur biomedis dan kesehatan.","https://pubmed.ncbi.nlm.nih.gov/","🧬"],
+ ["Perpusnas","Perpustakaan Nasional Republik Indonesia.","https://www.perpusnas.go.id/","🏛️"],
+ ["e-Resources Perpusnas","Layanan sumber elektronik Perpusnas; sebagian akses memerlukan keanggotaan.","https://e-resources.perpusnas.go.id/","📖"],
+ ["Indonesia OneSearch","Penelusuran koleksi perpustakaan dan sumber Indonesia.","https://onesearch.id/","🔍"],
+ ["Zotero","Aplikasi pengelola referensi dan sitasi.","https://www.zotero.org/","🗂️"],
+ ["Mendeley","Alat pengelola referensi dan literatur.","https://www.mendeley.com/","📑"]
+];
+
+const pageNames={
+ home:"Beranda",learn:"Pusat Pembelajaran",documents:"Panduan Karya Ilmiah",
+ format:"Format & Teknik Penulisan",citation:"Sitasi & Footnote",
+ references:"Pusat Referensi",method:"Metodologi Penelitian",
+ workspace:"Academic Workspace",examples:"Contoh Dokumen",
+ quiz:"Kuis & Latihan",ai:"AI Academic Tutor",
+ progress:"Progres Belajar",about:"Tentang KhaCerdas"
+};
+
+let completed=JSON.parse(localStorage.getItem("khacerdas_completed")||"[]");
+let notes=JSON.parse(localStorage.getItem("khacerdas_notes")||"[]");
+let currentLesson=null;
+let quizIndex=0,quizScore=0,quizAnswered=false;
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id)?.classList.add("active");
+ document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ document.getElementById("topTitle").textContent=pageNames[id]||"KhaCerdas";
+ document.getElementById("sidebar").classList.remove("open");
+ if(id==="progress")renderProgress();
+ if(id==="workspace")renderNotes();
+ if(id==="learn")renderLessons();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.getElementById("menuBtn").onclick=()=>document.getElementById("sidebar").classList.toggle("open");
+
+function renderLessons(){
+ const q=(document.getElementById("lessonSearch")?.value||"").toLowerCase();
+ const list=lessons.filter(l=>(l.title+" "+l.desc+" "+l.category).toLowerCase().includes(q));
+ document.getElementById("lessonList").innerHTML=list.map(l=>`
+ <div class="card lesson-card" onclick="openLesson('${l.id}')">
+ <div class="lesson-icon">${l.icon}</div><div style="flex:1">
+ <h3>${l.title}</h3><p>${l.desc}</p>
+ <span class="chip">${completed.includes(l.id)?"✓ Selesai":l.category}</span>
+ </div></div>`).join("")||'<div class="empty">Materi tidak ditemukan.</div>';
+}
+function openLesson(id){
+ currentLesson=lessons.find(l=>l.id===id);if(!currentLesson)return;
+ document.getElementById("modalTitle").textContent=currentLesson.title;
+ document.getElementById("modalContent").innerHTML=currentLesson.body;
+ const btn=document.getElementById("completeBtn");
+ btn.textContent=completed.includes(id)?"Sudah selesai ✓":"Tandai selesai ✓";
+ btn.disabled=completed.includes(id);
+ btn.style.opacity=btn.disabled?".6":"1";
+ document.getElementById("lessonModal").classList.add("show");
+}
+function closeLesson(){document.getElementById("lessonModal").classList.remove("show")}
+function completeLesson(){
+ if(!currentLesson||completed.includes(currentLesson.id))return;
+ completed.push(currentLesson.id);
+ localStorage.setItem("khacerdas_completed",JSON.stringify(completed));
+ closeLesson();updateDashboard();renderLessons();renderProgress();
+}
+function updateDashboard(){
+ const total=lessons.length,done=completed.length,pct=Math.round(done/total*100);
+ document.getElementById("homeDone").textContent=done;
+ document.getElementById("homePercent").textContent=pct+"%";
+ document.getElementById("homeBar").style.width=pct+"%";
+ document.getElementById("progressDone").textContent=done+" / "+total;
+ document.getElementById("progressPercent").textContent=pct+"%";
+}
+function renderProgress(){
+ updateDashboard();
+ document.getElementById("progressList").innerHTML=lessons.map(l=>`
+ <div class="item-row"><div><strong>${l.icon} ${l.title}</strong><small>${l.category}</small></div>
+ <span class="chip">${completed.includes(l.id)?"✓ Selesai":"Belum selesai"}</span></div>`).join("");
+}
+function resetProgress(){
+ if(!confirm("Yakin ingin menghapus seluruh progres belajar?"))return;
+ completed=[];localStorage.setItem("khacerdas_completed","[]");
+ updateDashboard();renderProgress();renderLessons();
+}
+function renderReferences(){
+ const q=(document.getElementById("refSearch")?.value||"").toLowerCase();
+ document.getElementById("referenceList").innerHTML=references.filter(r=>(r[0]+" "+r[1]).toLowerCase().includes(q)).map(r=>`
+ <div class="card"><div class="resource"><div style="display:flex;gap:12px;align-items:center">
+ <div class="lesson-icon">${r[3]}</div><div><h3>${r[0]}</h3><p>${r[1]}</p></div></div>
+ </div><div style="margin-top:15px"><a href="${r[2]}" target="_blank" rel="noopener noreferrer">Buka situs ↗</a></div></div>`).join("")||'<div class="empty">Referensi tidak ditemukan.</div>';
+}
+function addNote(){
+ const title=document.getElementById("noteTitle").value.trim();
+ const body=document.getElementById("noteBody").value.trim();
+ const category=document.getElementById("noteCategory").value;
+ if(!title||!body){alert("Isi judul dan catatan terlebih dahulu.");return}
+ notes.unshift({id:Date.now(),title,body,category,date:new Date().toLocaleDateString("id-ID")});
+ localStorage.setItem("khacerdas_notes",JSON.stringify(notes));
+ document.getElementById("noteTitle").value="";
+ document.getElementById("noteBody").value="";
+ renderNotes();
+}
+function renderNotes(){
+ document.getElementById("noteCount").textContent=notes.length+" catatan";
+ document.getElementById("notesList").innerHTML=notes.length?notes.map(n=>`
+ <div class="item-row"><div style="flex:1"><strong>${escapeHTML(n.title)}</strong><small>${escapeHTML(n.category)} · ${n.date}</small><p>${escapeHTML(n.body)}</p></div>
+ <button class="btn danger small" onclick="deleteNote(${n.id})">Hapus</button></div>`).join(""):'<div class="empty">Belum ada catatan. Tambahkan catatan pertamamu.</div>';
+}
+function deleteNote(id){
+ if(!confirm("Hapus catatan ini?"))return;
+ notes=notes.filter(n=>n.id!==id);
+ localStorage.setItem("khacerdas_notes",JSON.stringify(notes));renderNotes();
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function copyText(t){
+ if(!t){alert("Tidak ada teks untuk disalin.");return}
+ if(navigator.clipboard&&window.isSecureContext){
+  navigator.clipboard.writeText(t).then(()=>alert("Teks berhasil disalin.")).catch(()=>fallbackCopy(t));
+ }else fallbackCopy(t);
+}
+function fallbackCopy(t){
+ const el=document.createElement("textarea");el.value=t;document.body.appendChild(el);el.select();
+ try{document.execCommand("copy");alert("Teks berhasil disalin.")}catch(e){alert("Gagal menyalin teks.")}el.remove();
+}
+function prepareAI(){
+ const topic=document.getElementById("aiTopic").value;
+ const q=document.getElementById("aiQuestion").value.trim();
+ if(!q){alert("Tulis pertanyaan terlebih dahulu.");return}
+ document.getElementById("aiPrompt").value=
+ "Bertindaklah sebagai tutor akademik yang membantu mahasiswa belajar secara bertanggung jawab. Topik: "+topic+". Pertanyaan: "+q+". Berikan penjelasan dalam bahasa Indonesia yang jelas, sertakan contoh jika relevan, jangan mengarang referensi atau data, dan jelaskan hal yang perlu diverifikasi.";
+}
+
+const questions=[
+ {q:"Bagian yang berisi alasan pentingnya suatu penelitian adalah...",o:["Latar belakang","Daftar pustaka","Lampiran","Kata pengantar"],a:0,e:"Latar belakang menjelaskan konteks, masalah, dan alasan penelitian dilakukan."},
+ {q:"Model pengembangan 4D terdiri dari...",o:["Design, Data, Develop, Do","Define, Design, Develop, Disseminate","Define, Draft, Data, Discuss","Develop, Design, Decide, Deliver"],a:1,e:"Tahapan 4D adalah Define, Design, Develop, dan Disseminate."},
+ {q:"Apa fungsi sitasi dalam karya ilmiah?",o:["Memperpanjang tulisan","Menunjukkan sumber gagasan","Mengganti kesimpulan","Menghilangkan daftar pustaka"],a:1,e:"Sitasi menunjukkan sumber gagasan atau informasi yang digunakan."},
+ {q:"Yang dimaksud parafrasa adalah...",o:["Menyalin seluruh tulisan","Menghapus nama penulis","Menulis ulang gagasan dengan bahasa sendiri tanpa mengubah makna","Mengubah data penelitian"],a:2,e:"Parafrasa menyampaikan kembali gagasan sumber dengan bahasa sendiri dan tetap mencantumkan sumber."},
+ {q:"Manakah pernyataan yang benar tentang jurnal dan artikel?",o:["Keduanya selalu sama","Artikel adalah terbitan berkala","Jurnal merupakan terbitan yang dapat memuat artikel","Artikel tidak memerlukan referensi"],a:2,e:"Jurnal merupakan terbitan berkala, sedangkan artikel adalah tulisan yang dapat diterbitkan di dalamnya."}
+];
+function renderQuiz(){
+ const q=questions[quizIndex];
+ document.getElementById("quizNumber").textContent="Soal "+(quizIndex+1)+" dari "+questions.length;
+ document.getElementById("quizScore").textContent="Skor: "+quizScore;
+ document.getElementById("question").textContent=q.q;
+ document.getElementById("feedback").textContent="";
+ document.getElementById("nextQuestion").disabled=true;
+ document.getElementById("nextQuestion").textContent=quizIndex===questions.length-1?"Lihat hasil":"Soal berikutnya →";
+ document.getElementById("options").innerHTML=q.o.map((v,i)=>`<button class="quiz-option" onclick="answerQuiz(${i})">${String.fromCharCode(65+i)}. ${v}</button>`).join("");
+ quizAnswered=false;
+}
+function answerQuiz(i){
+ if(quizAnswered)return;quizAnswered=true;
+ const q=questions[quizIndex];
+ document.querySelectorAll(".quiz-option").forEach((b,j)=>{
+  b.disabled=true;
+  if(j===q.a)b.style.borderColor="#168b67";
+  if(j===i&&i!==q.a)b.style.borderColor="#d65a5a";
+ });
+ if(i===q.a)quizScore++;
+ document.getElementById("quizScore").textContent="Skor: "+quizScore;
+ document.getElementById("feedback").textContent=(i===q.a?"Benar! ":"Belum tepat. ")+q.e;
+ document.getElementById("nextQuestion").disabled=false;
+}
+function nextQuiz(){
+ if(!quizAnswered)return;
+ if(quizIndex===questions.length-1){
+  document.getElementById("quizBox").innerHTML=`<div style="text-align:center;padding:30px"><div style="font-size:45px">🏆</div><h2>Kuis selesai!</h2><p>Skor kamu: <b>${quizScore} dari ${questions.length}</b></p><button class="btn" onclick="restartQuiz()">Ulangi kuis</button></div>`;
+ }else{quizIndex++;renderQuiz()}
+}
+function restartQuiz(){quizIndex=0;quizScore=0;document.getElementById("quizBox").innerHTML=`
+ <div style="display:flex;justify-content:space-between"><span class="chip" id="quizNumber"></span><span id="quizScore" style="font-size:12px"></span></div>
+ <h2 id="question" style="margin-top:22px"></h2><div id="options"></div><div id="feedback" style="font-size:12px;margin:12px 0"></div>
+ <button class="btn" id="nextQuestion" onclick="nextQuiz()" disabled>Soal berikutnya →</button>`;
+ renderQuiz();
+}
+document.getElementById("lessonModal").addEventListener("click",e=>{if(e.target.id==="lessonModal")closeLesson()});
+document.getElementById("userName").textContent=localStorage.getItem("khacerdas_name")||"Mahasiswa";
+document.getElementById("avatar").textContent=(localStorage.getItem("khacerdas_name")||"M").charAt(0).toUpperCase();
+renderLessons();renderReferences();renderNotes();renderProgress();renderQuiz();
+</script>
+</body>
+</html>
