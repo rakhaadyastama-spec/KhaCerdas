@@ -651,5 +651,384 @@ document.getElementById("userName").textContent=localStorage.getItem("khacerdas_
 document.getElementById("avatar").textContent=(localStorage.getItem("khacerdas_name")||"M").charAt(0).toUpperCase();
 renderLessons();renderReferences();renderNotes();renderProgress();renderQuiz();
 </script>
+ 
+<style>
+#authScreen{
+ position:fixed;inset:0;z-index:99999;background:#101a35;
+ display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.auth-box{background:white;width:min(430px,100%);padding:25px;border-radius:20px;color:#17213b}
+.auth-box h2{margin:0 0 7px}
+.auth-box p{margin:0 0 18px}
+.auth-box input{width:100%;padding:13px;margin:7px 0;border:1px solid #e1e6f0;border-radius:9px}
+.auth-box button{width:100%;padding:13px;border:0;border-radius:9px;background:#3158d8;color:white;font-weight:bold;margin-top:10px}
+.auth-switch{background:#edf1ff!important;color:#3158d8!important}
+.auth-error{color:#c44b4b;font-size:12px;margin-top:10px}
+#logoutBtn{border:0;background:#fff0f0;color:#c44b4b;padding:8px 11px;border-radius:9px;font-size:11px;font-weight:bold}
+.auth-loading{opacity:.6;pointer-events:none}
+.quiz-history{margin-top:18px}
+@media(max-width:500px){.auth-box{padding:20px}}
+</style>
+
+<div id="authScreen">
+ <div class="auth-box">
+  <div style="text-align:center;margin-bottom:20px">
+   <div style="width:55px;height:55px;margin:auto auto 12px;border-radius:16px;background:linear-gradient(135deg,#7189ff,#3158d8);display:grid;place-items:center;color:white;font-size:27px;font-weight:900">K</div>
+   <h2>KhaCerdas</h2>
+   <p>Academic Assistant · Belajar dan berkarya</p>
+  </div>
+
+  <div id="registerFields" style="display:none">
+   <input id="authName" placeholder="Nama lengkap">
+   <input id="authCampus" placeholder="Nama perguruan tinggi">
+   <input id="authProdi" placeholder="Program studi">
+  </div>
+
+  <input id="authEmail" type="email" placeholder="Email">
+  <input id="authPassword" type="password" placeholder="Password minimal 6 karakter">
+
+  <button id="authSubmit" onclick="submitAuth()">Masuk</button>
+  <button class="auth-switch" id="authSwitch" onclick="toggleAuth()">Belum punya akun? Daftar</button>
+  <div id="authMessage" class="auth-error"></div>
+  <p style="font-size:10px;text-align:center;margin-top:15px">Data akun dan aktivitas belajar disimpan melalui database KhaCerdas.</p>
+ </div>
+</div>
+
+<script>
+const KHA_API = "/.netlify/functions/api";
+const KHA_TOKEN_KEY = "khacerdas_auth_token";
+let khaToken = localStorage.getItem(KHA_TOKEN_KEY) || "";
+let khaRegisterMode = false;
+let khaQuizSaved = false;
+let khaQuizHistory = [];
+
+async function khaRequest(action,data={},token=khaToken){
+ const response = await fetch(KHA_API,{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({action,data,token})
+ });
+
+ const result = await response.json();
+
+ if(!response.ok || !result.success){
+  throw new Error(result.message || "Permintaan gagal.");
+ }
+
+ return result;
+}
+
+function toggleAuth(){
+ khaRegisterMode = !khaRegisterMode;
+
+ document.getElementById("registerFields").style.display =
+  khaRegisterMode ? "block" : "none";
+
+ document.getElementById("authSubmit").textContent =
+  khaRegisterMode ? "Daftar Sekarang" : "Masuk";
+
+ document.getElementById("authSwitch").textContent =
+  khaRegisterMode ? "Sudah punya akun? Masuk" : "Belum punya akun? Daftar";
+
+ document.getElementById("authMessage").textContent = "";
+}
+
+function authMessage(message){
+ document.getElementById("authMessage").textContent = message;
+}
+
+async function submitAuth(){
+ const btn = document.getElementById("authSubmit");
+ const email = document.getElementById("authEmail").value.trim();
+ const password = document.getElementById("authPassword").value;
+
+ if(!email || !password){
+  authMessage("Email dan password wajib diisi.");
+  return;
+ }
+
+ if(khaRegisterMode){
+  const name = document.getElementById("authName").value.trim();
+
+  if(!name){
+   authMessage("Nama lengkap wajib diisi.");
+   return;
+  }
+
+  if(password.length < 6){
+   authMessage("Password minimal 6 karakter.");
+   return;
+  }
+ }
+
+ btn.disabled = true;
+ btn.textContent = "Memproses...";
+
+ try{
+  let result;
+
+  if(khaRegisterMode){
+   result = await khaRequest("register",{
+    name:document.getElementById("authName").value.trim(),
+    email,
+    password,
+    campus:document.getElementById("authCampus").value.trim(),
+    prodi:document.getElementById("authProdi").value.trim()
+   },"");
+  }else{
+   result = await khaRequest("login",{email,password},"");
+  }
+
+  khaToken = result.token;
+  localStorage.setItem(KHA_TOKEN_KEY,khaToken);
+
+  await khaLoadUserData();
+
+  document.getElementById("authScreen").style.display = "none";
+  document.querySelector(".app").style.visibility = "visible";
+
+  alert("Selamat datang di KhaCerdas!");
+
+ }catch(error){
+  authMessage(error.message);
+ }finally{
+  btn.disabled = false;
+  btn.textContent = khaRegisterMode ? "Daftar Sekarang" : "Masuk";
+ }
+}
+
+function khaSetUser(user){
+ if(!user)return;
+
+ localStorage.setItem("khacerdas_name",user.name || "Mahasiswa");
+
+ document.getElementById("userName").textContent =
+  user.name || "Mahasiswa";
+
+ document.getElementById("avatar").textContent =
+  (user.name || "M").charAt(0).toUpperCase();
+}
+
+async function khaLoadUserData(){
+ const data = await khaRequest("getAppData");
+
+ khaSetUser(data.user);
+
+ completed = Array.isArray(data.completed) ? data.completed : [];
+ notes = Array.isArray(data.notes) ? data.notes : [];
+ khaQuizHistory = Array.isArray(data.quizHistory) ? data.quizHistory : [];
+
+ localStorage.setItem("khacerdas_completed",JSON.stringify(completed));
+ localStorage.setItem("khacerdas_notes",JSON.stringify(notes));
+
+ updateDashboard();
+ renderLessons();
+ renderProgress();
+ renderNotes();
+ renderKhaQuizHistory();
+}
+
+function renderKhaQuizHistory(){
+ let section = document.getElementById("khaQuizHistory");
+
+ if(!section){
+  section = document.createElement("div");
+  section.id = "khaQuizHistory";
+  section.className = "card quiz-history";
+
+  document.getElementById("quiz").appendChild(section);
+ }
+
+ section.innerHTML = `
+  <h3>Riwayat Kuis</h3>
+  ${khaQuizHistory.length
+   ? khaQuizHistory.slice().reverse().map(item=>`
+    <div class="item-row">
+     <div>
+      <strong>Nilai ${Number(item.score)} dari ${Number(item.total)}</strong>
+      <small>${escapeHTML(String(item.date || ""))}</small>
+     </div>
+     <span class="chip">${item.total ? Math.round(item.score/item.total*100) : 0}%</span>
+    </div>
+   `).join("")
+   : '<div class="empty">Belum ada riwayat kuis.</div>'
+  }
+ `;
+}
+
+/* CATATAN ONLINE */
+window.addNote = async function(){
+ const title = document.getElementById("noteTitle").value.trim();
+ const body = document.getElementById("noteBody").value.trim();
+ const category = document.getElementById("noteCategory").value;
+
+ if(!title || !body){
+  alert("Isi judul dan catatan terlebih dahulu.");
+  return;
+ }
+
+ try{
+  await khaRequest("saveNote",{title,content:body,category});
+
+  document.getElementById("noteTitle").value = "";
+  document.getElementById("noteBody").value = "";
+
+  await khaLoadUserData();
+  alert("Catatan berhasil disimpan ke database.");
+
+ }catch(error){
+  alert(error.message);
+ }
+};
+
+window.renderNotes = function(){
+ document.getElementById("noteCount").textContent =
+  notes.length + " catatan";
+
+ document.getElementById("notesList").innerHTML =
+  notes.length ? notes.map(n=>`
+   <div class="item-row">
+    <div style="flex:1">
+     <strong>${escapeHTML(n.title)}</strong>
+     <small>${escapeHTML(n.category || "Catatan")} · ${escapeHTML(n.date || "")}</small>
+     <p>${escapeHTML(n.body)}</p>
+    </div>
+    <button class="btn danger small" onclick="deleteNote(${JSON.stringify(String(n.id))})">Hapus</button>
+   </div>
+  `).join("") :
+  '<div class="empty">Belum ada catatan. Tambahkan catatan pertamamu.</div>';
+};
+
+window.deleteNote = async function(id){
+ if(!confirm("Hapus catatan ini?"))return;
+
+ try{
+  await khaRequest("deleteNote",{noteId:String(id)});
+  await khaLoadUserData();
+ }catch(error){
+  alert(error.message);
+ }
+};
+
+/* PROGRES MATERI ONLINE */
+window.completeLesson = async function(){
+ if(!currentLesson || completed.includes(currentLesson.id))return;
+
+ try{
+  await khaRequest("completeModule",{
+   moduleId:currentLesson.id
+  });
+
+  await khaLoadUserData();
+  closeLesson();
+
+ }catch(error){
+  alert(error.message);
+ }
+};
+
+window.resetProgress = async function(){
+ if(!confirm("Yakin ingin menghapus seluruh progres belajar akun ini?"))return;
+
+ try{
+  await khaRequest("resetProgress");
+  await khaLoadUserData();
+  alert("Progres berhasil direset.");
+ }catch(error){
+  alert(error.message);
+ }
+};
+
+/* SIMPAN NILAI KUIS */
+const khaOriginalNextQuiz = window.nextQuiz;
+
+window.nextQuiz = async function(){
+ if(!quizAnswered)return;
+
+ if(quizIndex === questions.length - 1 && !khaQuizSaved){
+  const btn = document.getElementById("nextQuestion");
+  btn.disabled = true;
+
+  try{
+   await khaRequest("saveQuizResult",{
+    score:quizScore,
+    total:questions.length
+   });
+
+   khaQuizSaved = true;
+   await khaLoadUserData();
+
+  }catch(error){
+   alert("Nilai belum tersimpan: " + error.message);
+   btn.disabled = false;
+   return;
+  }
+ }
+
+ khaOriginalNextQuiz();
+};
+
+const khaOriginalRestartQuiz = window.restartQuiz;
+
+window.restartQuiz = function(){
+ khaQuizSaved = false;
+ khaOriginalRestartQuiz();
+};
+
+/* LOGOUT */
+async function khaLogout(){
+ if(!confirm("Apakah kamu yakin ingin keluar dari akun?"))return;
+
+ try{
+  await khaRequest("logout");
+ }catch(error){
+  console.warn(error);
+ }
+
+ localStorage.removeItem(KHA_TOKEN_KEY);
+ localStorage.removeItem("khacerdas_name");
+
+ location.reload();
+}
+
+const logoutButton = document.createElement("button");
+logoutButton.id = "logoutBtn";
+logoutButton.textContent = "Keluar";
+logoutButton.onclick = khaLogout;
+document.querySelector(".topbar .top-right:last-child").appendChild(logoutButton);
+
+/* PERBARUI KETERANGAN PRIVASI */
+const aboutParagraphs = document.querySelectorAll("#about .card p");
+aboutParagraphs.forEach(p=>{
+ if(p.textContent.includes("Versi ini menyimpan catatan")){
+  p.textContent = "Catatan, progres belajar, dan riwayat kuis disimpan melalui database KhaCerdas berdasarkan akun pengguna.";
+ }
+});
+
+/* PEMERIKSAAN SESI SAAT WEBSITE DIBUKA */
+async function khaStart(){
+ document.querySelector(".app").style.visibility = "hidden";
+
+ if(!khaToken){
+  document.getElementById("authScreen").style.display = "flex";
+  return;
+ }
+
+ try{
+  await khaLoadUserData();
+  document.getElementById("authScreen").style.display = "none";
+  document.querySelector(".app").style.visibility = "visible";
+ }catch(error){
+  localStorage.removeItem(KHA_TOKEN_KEY);
+  khaToken = "";
+  document.getElementById("authScreen").style.display = "flex";
+  authMessage("Sesi berakhir. Silakan login kembali.");
+ }
+}
+
+khaStart();
+</script>
+</escape>
+
 </body>
 </html>
