@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087b3b"><meta name="description" content="KhaKerja membantu pencari kerja menemukan peluang berdasarkan lokasi, kategori, dan jenis pekerjaan."><meta name="color-scheme" content="light">
+<title>KhaKerja Pro — Platform Peluang Kerja Bandar Lampung</title>
+<meta name="application-name" content="KhaKerja">
+<meta name="format-detection" content="telephone=no">
+<style>
+:root{--green:#087a28;--green2:#0b8730;--mint:#e5f3e9;--bg:#f3f6f5;--ink:#26332d;--muted:#718078;--line:#e0e8e3;--white:#fff;--shadow:0 5px 18px rgba(22,60,37,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;padding-bottom:82px}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:var(--green);color:#fff;padding:15px 18px 19px;position:sticky;top:0;z-index:10;box-shadow:0 3px 12px #0001}.brandrow{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border:1px solid #ffffff70;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:21px;background:#ffffff17}.brand{font-size:20px;font-weight:850;letter-spacing:.2px}.subbrand{font-size:12px;opacity:.8;margin-top:2px}.avatar{margin-left:auto;border:0;width:38px;height:38px;border-radius:50%;background:#e7f4ea;color:var(--green);font-weight:800}.wrap{max-width:900px;margin:auto;padding:18px 16px}.welcome{background:var(--green);color:#fff;border-radius:23px;padding:22px 20px;margin:2px 0 17px}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:850;opacity:.8}.welcome h1{font-size:24px;line-height:1.2;margin:10px 0}.welcome p{margin:0;line-height:1.55;font-size:14px;color:#e3f2e7}.searchbox{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px 13px;margin-top:17px}.searchbox span{font-size:19px;color:var(--green)}.searchbox input{border:0;outline:0;width:100%;color:var(--ink);background:transparent;font-size:14px}.location{font-size:12px;color:#e0f1e5;margin:10px 2px 0}.section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;margin:15px 0;box-shadow:var(--shadow)}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}.section h2{font-size:18px;margin:0;font-weight:850}.sectiondesc{font-size:13px;color:var(--muted);margin:6px 0 15px;line-height:1.45}.pill{font-size:10px;font-weight:800;color:#22683a;background:var(--mint);border-radius:30px;padding:8px 11px;white-space:nowrap}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cat{border:1px solid var(--line);border-radius:15px;background:#fff;min-height:102px;padding:11px 5px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink);font-size:11px;font-weight:700;text-align:center;box-shadow:0 2px 6px #00000008}.cat:active,.cat.active{border-color:#9bcbaa;background:#f4fbf6}.ico{width:43px;height:43px;border-radius:14px;background:#e4f0ff;display:grid;place-items:center;font-size:22px}.cat:nth-child(4n+2) .ico{background:#dff5f4}.cat:nth-child(4n+3) .ico{background:#fff0d4}.cat:nth-child(4n) .ico{background:#eee5ff}.joblist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.job{border:1px solid var(--line);border-radius:16px;padding:13px;background:#fff;min-width:0;display:flex;flex-direction:column;gap:7px;cursor:pointer;transition:.15s}.job:hover{border-color:#9bcbaa;transform:translateY(-1px)}.companylogo{height:43px;width:48px;border-radius:12px;background:#e8f3eb;color:var(--green);display:grid;place-items:center;font-size:17px;font-weight:900}.jobtitle{font-size:13px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.company{font-size:11px;color:#5f6d65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:11px;color:#65746b;display:flex;align-items:center;gap:6px;line-height:1.35}.salary{font-weight:800;color:var(--green);font-size:12px}.tag{font-size:10px;background:#f0f6f1;color:#39714a;border-radius:7px;padding:5px 7px;align-self:flex-start}.date{font-size:10px;color:#89958e;margin-top:auto;padding-top:4px}.linkbtn{border:0;background:transparent;color:#36805a;font-size:12px;font-weight:800;padding:5px}.banner{background:#e8f4ec;border:1px solid #d9eadf;border-radius:17px;padding:17px;display:flex;align-items:center;gap:12px}.bannericon{font-size:29px}.banner strong{font-size:14px}.banner p{font-size:12px;color:#617267;margin:5px 0 0;line-height:1.4}.bottom{position:fixed;z-index:20;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px #00000008}.nav{border:0;background:transparent;color:#89958e;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:4px 0}.nav .nicon{font-size:21px}.nav.active{color:var(--green)}.page{display:none}.page.active{display:block}.page-title{font-size:22px;font-weight:850;margin:7px 0 5px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:750;color:#4d5c53}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfdfb;outline:none;color:var(--ink);width:100%}.field textarea{min-height:100px;resize:vertical}.btn{border:0;border-radius:12px;background:var(--green);color:white;padding:12px 16px;font-weight:800;font-size:13px}.btn.secondary{background:#e8f3eb;color:var(--green)}.btn.outline{background:white;color:var(--green);border:1px solid #b8d8c1}.btn.full{width:100%}.row{display:flex;gap:9px;align-items:center}.row>*{flex:1}.empty{text-align:center;padding:28px 12px;color:#7b8980;font-size:13px}.detailhead{display:flex;align-items:center;gap:12px}.back{border:0;background:#e8f3eb;color:var(--green);border-radius:10px;padding:9px 12px;font-weight:800}.detailtitle{font-size:20px;font-weight:850;margin:17px 0 4px}.detailblock{border-top:1px solid var(--line);padding:16px 0}.detailblock h3{font-size:14px;margin:0 0 9px}.detailblock p,.detailblock li{font-size:13px;line-height:1.65;color:#536158}.detailblock ul{padding-left:19px;margin:5px 0}.status{font-size:10px;border-radius:20px;padding:6px 9px;background:#fff1d9;color:#8b5a10;font-weight:800}.status.ok{background:#e4f4e8;color:#26703d}.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#25372b;color:#fff;padding:11px 16px;border-radius:12px;font-size:12px;z-index:40;display:none;box-shadow:var(--shadow);max-width:90%;text-align:center}.auth{min-height:65vh;display:grid;place-items:center}.authcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;width:100%;max-width:440px;text-align:center}.authlogo{width:65px;height:65px;margin:auto;border-radius:20px;background:var(--green);color:white;display:grid;place-items:center;font-size:30px;font-weight:900}.hide{display:none!important}@media(min-width:700px){.wrap{padding:24px}.joblist{grid-template-columns:repeat(3,minmax(0,1fr))}.categories{grid-template-columns:repeat(6,1fr)}.top{padding-left:max(18px,calc((100% - 850px)/2));padding-right:max(18px,calc((100% - 850px)/2))}.bottom{max-width:900px;left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0}.welcome{padding:28px}.welcome h1{font-size:29px}}
+
+/* KhaKerja Professional UI refinement */
+:root{--green:#087a35;--green2:#0b9142;--mint:#eaf6ee;--bg:#f5f8f6;--ink:#172b20;--muted:#6b7d72;--line:#e3ebe5;--shadow:0 8px 24px rgba(18,55,32,.055)}
+body{background:var(--bg);padding-bottom:92px}.top{background:linear-gradient(120deg,#075f2b,#0b8a3e);padding-top:13px;padding-bottom:14px}.logo{border-radius:13px;background:#ffffff20}.brand{letter-spacing:.6px}.welcome{background:linear-gradient(135deg,#075f2b 0%,#0b9142 100%);box-shadow:0 12px 28px #087a2825}.section{box-shadow:0 5px 20px rgba(21,55,34,.045);border-radius:18px}.cat,.job{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.cat:hover,.job:hover{box-shadow:0 8px 20px rgba(15,70,35,.08)}.job{padding:15px}.companylogo{background:#e8f5ec;border:1px solid #d9eddf}.btn{background:linear-gradient(120deg,#087a35,#0b9142);box-shadow:0 4px 10px #087a2818}.btn.secondary,.back{box-shadow:none}.page{position:relative;padding-top:2px}.page-close{position:absolute;right:0;top:0;z-index:2;border:1px solid var(--line);background:#fff;color:#68796e;border-radius:50%;width:35px;height:35px;font-size:21px;line-height:1;display:grid;place-items:center;box-shadow:0 3px 10px #00000008}.page-close:hover{background:#f0f7f2;color:var(--green)}.page-title{padding-right:46px}.filter-note{font-size:11px;color:var(--muted);margin:-4px 0 10px}.mapbtn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;text-decoration:none}.detail-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}.detail-meta-item{background:#f5f9f6;border:1px solid #e7efe9;border-radius:12px;padding:10px}.detail-meta-item small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}.detail-meta-item strong{font-size:12px;line-height:1.4}.field input:focus,.field select:focus,.field textarea:focus{border-color:#77b88a;box-shadow:0 0 0 3px #087a2810}@media(max-width:420px){.categories{grid-template-columns:repeat(4,1fr)}.joblist{grid-template-columns:1fr 1fr}.detail-meta-grid{grid-template-columns:1fr 1fr}.section{padding:14px}}
+
+
+/* ===== KhaKerja refined mobile interface ===== */
+:root{--green:#087b3b;--green2:#0b9650;--ink:#172b21;--muted:#718078;--bg:#f4f7f5;--line:#e5ece7;--mint:#eaf5ed}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#f4f7f5;color:#1a2e23;letter-spacing:-.01em}
+.top{background:linear-gradient(115deg,#075f30,#0a8844);padding:14px 18px;box-shadow:0 5px 18px #064a281f}
+.brandrow{max-width:900px;margin:auto}.logo{border-radius:14px;width:46px;height:46px;font-size:22px;border:1px solid #ffffff55;background:#ffffff18}.brand{font-size:21px;letter-spacing:.5px}.subbrand{font-size:12px;color:#e0f2e7}
+.avatar{width:42px;height:42px;background:#eff9f2;color:#087b3b;font-size:16px}
+.wrap{max-width:900px;padding:22px 17px 28px}
+.section,.account-card{background:#fff;border:1px solid #e6ede8;border-radius:21px;box-shadow:0 7px 25px rgba(20,56,34,.045)}
+.page-title{font-size:25px;letter-spacing:-.8px;color:#172b21;margin:0 0 4px}
+.muted{color:#78877e;font-size:13px}
+.page-close{width:38px;height:38px;top:0;right:0;border-color:#e5ece7;box-shadow:0 3px 12px #183b2410;font-size:23px}
+.account-page{padding-top:5px}
+.account-heading{padding:3px 48px 17px 0}
+.account-eyebrow{font-size:10px;letter-spacing:1.8px;color:#13834a;font-weight:850;margin-bottom:7px}
+.account-heading .muted{margin:7px 0 0}
+.account-card{overflow:hidden;margin:0 0 16px;padding:0}
+.profile-cover{height:74px;background:linear-gradient(115deg,#08743a,#16a05a);position:relative}
+.profile-cover:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff22;border-radius:50%;right:12px;top:-112px;box-shadow:0 0 0 24px #ffffff08,0 0 0 48px #ffffff06}
+.profile-main{display:flex;align-items:center;gap:14px;padding:0 19px 17px;margin-top:-30px;position:relative}
+.profile-avatar{width:66px;height:66px;border-radius:20px;border:4px solid #fff;background:#087b3b;color:#fff;display:grid;place-items:center;font-size:26px;font-weight:900;box-shadow:0 4px 13px #16482a20;flex:none}
+.profile-copy{display:flex;flex-direction:column;gap:3px;padding-top:28px;min-width:0}
+.profile-copy strong{font-size:17px;line-height:1.3;color:#1b3024;overflow-wrap:anywhere}
+.profile-copy span{font-size:12px;color:#728078}
+.profile-copy small{font-size:10px;color:#13834a;font-weight:750;letter-spacing:.4px;margin-top:3px}
+.account-divider{height:1px;background:#edf1ee;margin:0 19px 13px}
+.profile-card .field{margin:13px 19px}
+.field label{font-size:12px;color:#42544a;font-weight:750}
+.field input,.field select,.field textarea{border:1px solid #e1e9e3;border-radius:13px;background:#f9fbf9;padding:14px 14px;font-size:14px;min-height:48px}
+.field input::placeholder{color:#a0aaa4}
+.save-profile-btn{width:calc(100% - 38px)!important;margin:5px 19px 19px;border-radius:13px;min-height:49px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;box-shadow:0 6px 14px #087b3b20}
+.save-profile-btn span{font-size:18px;font-weight:500}
+.menu-card{padding:18px 17px 9px}
+.menu-heading{display:flex;align-items:center;justify-content:space-between;margin:0 1px 13px}
+.menu-heading h2{font-size:18px;margin:0;color:#1b3024;letter-spacing:-.3px}
+.menu-heading p{font-size:11px;color:#829087;margin:4px 0 0}
+.menu-heading-icon{width:37px;height:37px;border-radius:12px;background:#eef7f0;color:#148247;display:grid;place-items:center;font-size:19px}
+.account-menu-item{width:100%;display:flex;align-items:center;gap:12px;padding:12px 10px;margin:0 0 8px;border:1px solid #edf1ee;border-radius:14px;background:#fff;text-align:left;color:#23372b;min-height:67px}
+.account-menu-item:active{background:#f4faf6;transform:scale(.99)}
+.menu-icon{width:39px;height:39px;border-radius:12px;background:#eaf5ed;color:#0b8241;display:grid;place-items:center;font-size:19px;font-weight:800;flex:none}
+.account-menu-item>span:nth-child(2){display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.account-menu-item b{font-size:13px;font-weight:800}
+.account-menu-item small{font-size:10px;color:#829087;line-height:1.3}
+.menu-arrow{font-size:23px;color:#9aa79f;padding:0 4px}
+.danger-menu .menu-icon{background:#f4f5f4;color:#748078}
+.danger-menu b{color:#536259}
+.account-footer{text-align:center;padding:17px 8px 6px;color:#87948c}
+.footer-mark{display:grid;place-items:center;margin:0 auto 8px;width:30px;height:30px;border-radius:9px;background:#e4f1e8;color:#0b8040;font-weight:900}
+.account-footer>b{font-size:11px;letter-spacing:1.4px;color:#617268}
+.account-footer p{font-size:11px;margin:5px 0 8px}
+.account-footer small{font-size:10px}
+.bottom{padding:9px 4px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #e7ede9;box-shadow:0 -5px 20px #173a240c}
+.nav{font-size:10px;gap:4px;padding:5px 0;color:#8b9790}
+.nav .nicon{font-size:21px;line-height:1.2}
+.nav.active{color:#087b3b}
+.btn{border-radius:13px;font-weight:800}
+@media(min-width:700px){.account-page{max-width:700px;margin:0 auto}.profile-card,.menu-card{margin-bottom:18px}.profile-main{padding-left:24px}.profile-card .field{margin-left:24px;margin-right:24px}.save-profile-btn{width:calc(100% - 48px)!important;margin-left:24px;margin-right:24px}.account-divider{margin-left:24px;margin-right:24px}}
+@media(max-width:380px){.wrap{padding-left:13px;padding-right:13px}.page-title{font-size:23px}.profile-main{gap:11px;padding-left:15px;padding-right:15px}.profile-card .field{margin-left:15px;margin-right:15px}.save-profile-btn{width:calc(100% - 30px)!important;margin-left:15px;margin-right:15px}.account-divider{margin-left:15px;margin-right:15px}.menu-card{padding-left:13px;padding-right:13px}}
+
+
+/* ===== KhaKerja Complete Prototype V3 ===== */
+.bottom{grid-template-columns:repeat(6,minmax(0,1fr));padding-left:2px;padding-right:2px}
+.nav{font-size:9px;white-space:nowrap}.nav .nicon{font-size:20px}
+.job-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.save-chip{border:1px solid #e3ece5;background:#f8fbf8;color:#728078;border-radius:10px;width:34px;height:34px;font-size:20px;line-height:1;display:grid;place-items:center}
+.save-chip.saved{color:#d34b62;background:#fff3f5;border-color:#f5d8df}
+.application-card{padding:14px 0;border-bottom:1px solid var(--line)}.application-card:last-child{border-bottom:0}.application-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.application-card-head b{font-size:14px}.application-meta{font-size:11px;color:var(--muted);margin-top:9px;line-height:1.5}.small-note{font-size:11px;line-height:1.5;background:#f4f8f5;padding:10px 12px;border-radius:10px}
+#formLamaran .banner{margin-bottom:14px}#formLamaran .banner>div{min-width:0}#formLamaran .banner strong{display:block;font-size:14px}#formLamaran .banner p{overflow-wrap:anywhere}
+#applicationForm input[type=file]{font-size:12px;padding:10px;background:#f8fbf8}
+.account-menu-item:focus-visible,.btn:focus-visible,.nav:focus-visible,.save-chip:focus-visible{outline:3px solid #9bcbaa;outline-offset:2px}
+@media(max-width:370px){.nav{font-size:8px}.nav .nicon{font-size:18px}.bottom{padding-left:1px;padding-right:1px}.nav{letter-spacing:-.2px}}
+@media(min-width:700px){.bottom{grid-template-columns:repeat(6,1fr)}}
+
+
+/* KhaKerja V4 — advanced product experience */
+:root{--surface:#fff;--surface2:#f6faf7;--green-deep:#075f30;--focus:#70b989}
+.top{display:flex;justify-content:center}.brandrow{width:100%;max-width:900px}.header-action{position:relative;border:1px solid #ffffff48;background:#ffffff16;color:#fff;border-radius:12px;width:37px;height:37px;font-size:19px;margin-left:2px}.header-action i{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffd36a;right:7px;top:6px;display:none}.header-action i.show{display:block}
+.quick-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 15px}.stat-card{display:flex;align-items:center;gap:9px;padding:12px 10px;border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:0 4px 14px #12351d08;min-width:0}.stat-icon{width:34px;height:34px;border-radius:11px;background:#eaf5ed;color:#087b3b;display:grid;place-items:center;font-size:18px;flex:none}.stat-card b{display:block;font-size:17px;color:#173525;line-height:1.2}.stat-card small{display:block;font-size:9px;color:#7b8980;margin-top:3px;white-space:nowrap}
+.filter-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}.filter-actions .btn{white-space:nowrap}.filter-actions .filter-note{text-align:right;margin:0}.job-card-top{display:flex;align-items:center;justify-content:space-between}.save-chip{border:1px solid #e6eee8;background:#fff;color:#87958c;width:31px;height:31px;border-radius:10px;font-size:17px}.save-chip.saved{color:#df5570;background:#fff4f6;border-color:#f5d9df}.job{position:relative}.job:focus-within{outline:2px solid #9bcbaa}
+.application-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;margin:10px 0}.application-card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.application-card-head b{font-size:13px}.application-meta{font-size:11px;color:#718078;margin-top:9px;line-height:1.5}.notification-item{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--line)}.notification-item:last-child{border-bottom:0}.notification-icon{width:37px;height:37px;border-radius:12px;background:#e9f5ed;color:#087b3b;display:grid;place-items:center;flex:none}.notification-item b{font-size:13px}.notification-item p{font-size:11px;color:#718078;margin:4px 0;line-height:1.5}.notification-item small{font-size:10px;color:#99a49d}.notification-item.unread{background:#f7fbf8;margin:0 -8px;padding:13px 8px;border-radius:10px}.restore-menu{cursor:pointer}.restore-menu input{display:none}.account-menu-item{cursor:pointer}.account-menu-item:focus-visible,.btn:focus-visible,.nav:focus-visible,.header-action:focus-visible{outline:3px solid #91c9a1;outline-offset:2px}
+body.dark{--bg:#101914;--ink:#e8f1eb;--muted:#a4b4a9;--line:#2a3b30;--white:#18251d;--surface:#18251d;--surface2:#1d2c22;background:#101914;color:#e8f1eb}body.dark .section,body.dark .account-card,body.dark .job,body.dark .stat-card,body.dark .application-card,body.dark .bottom{background:#18251d;border-color:#2a3b30;color:#e8f1eb}body.dark .section h2,body.dark .page-title,body.dark .jobtitle,body.dark .stat-card b,body.dark .menu-heading h2{color:#edf6ef}body.dark .field input,body.dark .field select,body.dark .field textarea{background:#122017;border-color:#34483a;color:#e8f1eb}body.dark .field label,body.dark .company,body.dark .meta,body.dark .muted,body.dark .sectiondesc{color:#a4b4a9}body.dark .account-menu-item{background:#18251d;border-color:#2a3b30;color:#e8f1eb}body.dark .detail-meta-item{background:#1d2c22;border-color:#304236}body.dark .detail-meta-item strong{color:#e8f1eb}body.dark .save-chip{background:#1d2c22;border-color:#34483a}body.dark .banner{background:#1b3324;border-color:#304b39}body.dark .nav{color:#9aaca0}body.dark .nav.active{color:#74c38d}body.dark .page-close{background:#18251d;color:#d8e8dc;border-color:#34483a}
+@media(max-width:420px){.quick-stats{gap:6px}.stat-card{padding:10px 7px;gap:6px}.stat-icon{width:29px;height:29px;font-size:15px}.stat-card b{font-size:15px}.stat-card small{font-size:8px}.header-action{width:32px;height:34px}.filter-actions{align-items:flex-start;flex-direction:column}.filter-actions .filter-note{text-align:left}}
+
+
+/* KhaKerja V4.1 — readable, consistent color system */
+:root{
+ --green:#087b43;--green2:#0b9252;--green-deep:#075f36;
+ --bg:#f5f8f6;--ink:#1d3026;--muted:#68796f;--line:#e1e9e3;
+ --mint:#eaf5ee;--surface:#ffffff;--surface2:#f8fbf9;
+ --shadow:0 5px 18px rgba(22,60,37,.055);
+ color-scheme:light;
+}
+html,body{background:var(--bg);color:var(--ink)}
+body{background:#f5f8f6;color:#1d3026}
+.top{background:linear-gradient(110deg,#075f36 0%,#087b43 58%,#0b9252 100%);color:#fff}
+.welcome{background:linear-gradient(125deg,#087b43 0%,#0b9252 100%);color:#fff;box-shadow:0 10px 26px rgba(8,123,67,.15)}
+.welcome h1{color:#fff}
+.welcome p,.welcome .location{color:#e8f5ed}
+.section,.account-card,.job,.stat-card,.application-card{
+ background:#fff;color:#1d3026;border-color:#e3ebe5;
+ box-shadow:0 5px 18px rgba(22,60,37,.045)
+}
+.section h2,.page-title,.jobtitle,.stat-card b,.menu-heading h2{color:#1d3026}
+.sectiondesc,.muted,.jobmeta,.account-menu-item small{color:#68796f}
+.pill{background:#eaf5ee;color:#176c40}
+.cat{
+ background:#fff!important;color:#26382e!important;border:1px solid #e2eae4;
+ box-shadow:0 2px 7px rgba(25,55,36,.045)
+}
+.cat .ico{color:#176c40}
+.cat:active,.cat.active{background:#edf7f0!important;border-color:#8fc6a2;color:#075f36!important}
+.job{background:#fff;color:#1d3026}
+.job strong,.job b,.jobtitle{color:#1d3026}
+.companylogo,.logo,.profile-avatar{background:#087b43;color:#fff}
+.field label{color:#405449}
+.field input,.field select,.field textarea{
+ background:#fbfdfb;color:#1d3026;border:1px solid #dfe8e1
+}
+.field input::placeholder,.field textarea::placeholder{color:#87958c;opacity:1}
+.searchbox{background:#fff;border:1px solid #dfe8e1}
+.searchbox input{color:#1d3026}
+.btn{background:linear-gradient(110deg,#087b43,#0b9252);color:#fff;border:0}
+.btn.secondary,.btn.outline{background:#edf6f0;color:#176c40;border:1px solid #d8e9dd}
+.linkbtn{color:#087b43}
+.banner{background:#edf6f0;border:1px solid #dcebe0;color:#234432}
+.bottom{background:#fff;border-top:1px solid #e1e9e3;box-shadow:0 -5px 18px rgba(25,55,36,.06)}
+.nav{color:#78877e}
+.nav.active{color:#087b43}
+.header-action{background:#ffffff20;color:#fff;border-color:#ffffff45}
+.page-close{background:#fff;color:#53665a;border-color:#e1e9e3}
+.toast{background:#20372a;color:#fff}
+:focus-visible{outline:3px solid #79bd91;outline-offset:2px}
+
+/* Dark theme: all surfaces and their text stay readable together */
+body.dark{
+ --bg:#111b15;--ink:#edf5ef;--muted:#b0beb5;--line:#304238;
+ --mint:#203a2b;--surface:#1b2a21;--surface2:#223329;
+ background:#111b15;color:#edf5ef;color-scheme:dark
+}
+body.dark .top{background:linear-gradient(110deg,#102f20,#145c36);color:#fff}
+body.dark .welcome{background:linear-gradient(125deg,#145c36,#187947);color:#fff}
+body.dark .welcome h1{color:#fff}
+body.dark .welcome p,body.dark .welcome .location{color:#e5f3e9}
+body.dark .section,body.dark .account-card,body.dark .job,
+body.dark .stat-card,body.dark .application-card{
+ background:#1b2a21!important;color:#edf5ef!important;border-color:#304238!important;
+ box-shadow:0 5px 18px rgba(0,0,0,.12)
+}
+body.dark .section h2,body.dark .page-title,body.dark .jobtitle,
+body.dark .stat-card b,body.dark .menu-heading h2,
+body.dark .job strong,body.dark .job b{color:#f0f6f1!important}
+body.dark .sectiondesc,body.dark .muted,body.dark .jobmeta,
+body.dark .account-menu-item small{color:#b0beb5!important}
+body.dark .cat{
+ background:#223329!important;color:#edf5ef!important;border-color:#3a5042!important
+}
+body.dark .cat:active,body.dark .cat.active{
+ background:#294b36!important;color:#fff!important;border-color:#79b88d!important
+}
+body.dark .cat .ico{background:#304b3a!important;color:#e9f5ec!important}
+body.dark .pill{background:#294735;color:#ccebd6}
+body.dark .field label{color:#d5e3d9}
+body.dark .field input,body.dark .field select,body.dark .field textarea{
+ background:#142119!important;color:#edf5ef!important;border-color:#3a5042!important
+}
+body.dark .field input::placeholder,body.dark .field textarea::placeholder{color:#9aaca0!important}
+body.dark .searchbox{background:#1b2a21;border-color:#3a5042}
+body.dark .searchbox input{color:#edf5ef}
+body.dark .btn.secondary,body.dark .btn.outline{background:#294735;color:#e2f2e7;border-color:#3c6049}
+body.dark .banner{background:#1d3426;border-color:#304d3a;color:#e4f1e7}
+body.dark .bottom{background:#17251c;border-color:#304238}
+body.dark .nav{color:#a7b6ac}
+body.dark .nav.active{color:#83d09c}
+body.dark .page-close{background:#223329;color:#e8f1eb;border-color:#3a5042}
+body.dark .account-menu-item{background:#1b2a21;color:#edf5ef;border-color:#304238}
+body.dark .menu-icon{background:#294735;color:#bfe6ca}
+body.dark .account-divider{background:#304238}
+body.dark .profile-copy strong{color:#f0f6f1}
+body.dark .account-footer{color:#a7b6ac}
+@media(max-width:420px){
+ .section{border-radius:18px}
+ .cat{min-height:96px}
+ .cat .ico{width:42px;height:42px}
+ .sectiondesc{line-height:1.55}
+}
+
+
+/* Simplified search experience: essential fields first, advanced filters optional */
+.explore-heading{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0 16px}.explore-heading .eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:850;color:#087b43;margin-bottom:6px}.explore-heading .muted{margin-top:6px}.explore-search-card{padding:18px!important}.explore-search-card .field{margin:0 0 14px}.explore-search-card .field label{font-size:12px}.explore-search-card input{min-height:51px;font-size:15px}.explore-submit{min-height:49px;display:flex;align-items:center;justify-content:center;gap:9px}.explore-submit span{font-size:18px}.advanced-filters{margin-top:15px;border-top:1px solid #e6ede8;padding-top:13px}.advanced-filters summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#176c40;font-size:13px;font-weight:800}.advanced-filters summary::-webkit-details-marker{display:none}.advanced-filters summary:after{content:'＋';font-size:18px}.advanced-filters[open] summary:after{content:'−'}.advanced-filters summary small{font-size:10px;font-weight:500;color:#829087;margin-left:auto;text-align:right}.advanced-inner{padding-top:15px}.advanced-inner .row{gap:10px}.advanced-inner .field{margin-bottom:12px}.advanced-inner .btn{margin-top:2px}.explore-results{scroll-margin-top:12px}.explore-results .sectionhead{align-items:flex-start}.explore-results .sectionhead p{margin:4px 0 0;font-size:11px;color:#7b8981}
+body.dark .advanced-filters{border-color:#304238}body.dark .advanced-filters summary{color:#a8dfb8}body.dark .advanced-filters summary small{color:#aab9af}
+
+
+.admin-workspace .admin-topline{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+.admin-status{font-size:10px;font-weight:900;letter-spacing:.08em;padding:8px 11px;border-radius:999px;background:#fff1d7;color:#8b5b12;white-space:nowrap}
+.admin-warning{display:grid;gap:5px;padding:14px 16px;border:1px solid #ead4a4;background:#fff8e9;color:#654b20;border-radius:15px;font-size:12px;line-height:1.55;margin-bottom:16px}
+.admin-warning b{font-size:13px}
+.admin-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:16px}
+.admin-stat{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:13px 10px;min-width:0}
+.admin-stat small{display:block;color:var(--muted);font-size:10px;line-height:1.3}
+.admin-stat strong{display:block;font-size:23px;color:var(--ink);margin-top:5px}
+.admin-section h2{margin-bottom:5px}
+.admin-job-card{border:1px solid var(--line);border-radius:17px;padding:15px;margin:13px 0;background:var(--surface)}
+.admin-job-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.admin-job-head h3{font-size:16px;margin:0 0 4px;color:var(--ink)}
+.admin-company{font-weight:800;color:var(--ink);font-size:13px}
+.admin-job-meta{color:var(--muted);font-size:12px;line-height:1.6;margin-top:3px}
+.admin-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0}
+.admin-info{background:var(--soft,var(--surface-2));border:1px solid var(--line);border-radius:11px;padding:10px;min-width:0}
+.admin-info small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}
+.admin-info b{font-size:12px;overflow-wrap:anywhere;color:var(--ink)}
+.admin-description{font-size:12px;line-height:1.6;color:var(--muted);margin:10px 0}
+.admin-checks{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.admin-checks span{font-size:10px;border-radius:999px;padding:5px 8px;background:#e9f5ed;color:#176b40;font-weight:700}
+.admin-actions{display:flex;gap:8px;margin-top:13px}
+.admin-actions .btn{flex:1}
+.admin-wa{display:inline-flex;align-items:center;justify-content:center;margin-top:8px;padding:9px 12px;border-radius:10px;background:#e7f7ed;color:#087b43;text-decoration:none;font-size:12px;font-weight:800}
+.admin-note{width:100%;min-height:64px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:12px;margin-top:8px}
+@media(max-width:390px){.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-info-grid{grid-template-columns:1fr}.admin-workspace .admin-topline{display:block}.admin-status{display:inline-block;margin-top:8px}}
+
+
+/* Login screen integrated with the complete KhaKerja app */
+.auth-screen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:22px 16px;background:radial-gradient(circle at 15% 10%,#dff4e6 0,#edf7f0 35%,#f5f8f6 75%);overflow:auto}
+.auth-panel{width:100%;max-width:410px;background:#fff;border:1px solid #e4eee7;border-radius:26px;padding:28px 23px;box-shadow:0 18px 55px rgba(14,74,37,.12)}
+.auth-brand{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:28px}
+.auth-brand-mark{width:49px;height:49px;border-radius:16px;background:linear-gradient(135deg,#087b3b,#12a45a);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:900;box-shadow:0 7px 16px #087b3b30}
+.auth-brand-name{text-align:left;font-size:19px;font-weight:900;color:#173d27;line-height:1.1}
+.auth-brand-sub{font-size:11px;color:#829187;margin-top:4px}
+.auth-heading{text-align:left;margin-bottom:21px}
+.auth-heading h1{font-size:24px;letter-spacing:-.5px;margin:0 0 7px;color:#183b27}
+.auth-heading p{font-size:13px;line-height:1.55;color:#78877e;margin:0}
+.auth-panel .field{margin:13px 0}
+.auth-panel .field label{font-size:12px;color:#3d5948}
+.auth-panel .field input{background:#f8fbf9;border:1px solid #e1ebe4;border-radius:13px;padding:14px}
+.auth-panel .btn{padding:14px;border-radius:13px;margin-top:7px}
+.auth-switch{border:0;background:transparent;color:#087b3b;font-weight:800;font-size:13px;padding:13px 6px 2px}
+.auth-foot{text-align:center;color:#98a49c;font-size:10px;line-height:1.5;margin:20px 8px 0}
+.auth-error{font-size:12px;color:#b54747;background:#fff2f1;border-radius:10px;padding:9px 11px;margin:8px 0;display:none}
+body:not(.authenticated) header.top,body:not(.authenticated) main,body:not(.authenticated) nav.bottom{display:none!important}
+@media(min-width:600px){.auth-panel{padding:34px 32px}}
+
+</style>
+
+<style>
+/* Final usability safeguards */
+:focus-visible{outline:3px solid #79bd8d;outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+
+<style id="khakerja-v5-polish">
+:root{--focus-ring:#78b98d}
+html{scroll-padding-top:90px}
+button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--focus-ring)!important;outline-offset:2px}
+button{touch-action:manipulation}
+input,select,textarea{min-width:0}
+.job{overflow-wrap:anywhere}
+.empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}
+.small-note{line-height:1.6}
+@media(max-width:380px){.welcome h1{font-size:22px}.sectionhead{align-items:flex-start}.sectionhead .pill{font-size:9px;padding:7px 8px}.bottom{padding-left:2px;padding-right:2px}}
+@media(min-width:900px){.wrap{padding-top:28px}.welcome{padding:32px}.section{padding:20px}}
+</style>
+
+</head>
+<body>
+
+<div class="auth-screen" id="authScreen">
+ <div class="auth-panel">
+  <div class="auth-brand"><div class="auth-brand-mark">K</div><div><div class="auth-brand-name">KhaKerja Pro</div><div class="auth-brand-sub">Platform peluang kerja Bandar Lampung</div></div></div>
+  <div class="auth-heading"><h1 id="authTitle">Selamat datang kembali</h1><p id="authSubtitle">Masuk untuk melanjutkan perjalanan menemukan peluang kerja yang tepat.</p></div>
+  <form id="authForm" onsubmit="submitLocalAuth(event)">
+   <div class="field hide" id="authNameField"><label for="authName">Nama lengkap</label><input id="authName" autocomplete="name" placeholder="Masukkan nama lengkap"></div>
+   <div class="field"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="nama@email.com"></div>
+   <div class="field"><label for="authPassword">Kata sandi</label><input id="authPassword" type="password" autocomplete="current-password" required minlength="4" placeholder="Masukkan kata sandi"></div>
+   <div class="auth-error" id="authError" role="alert"></div>
+   <button class="btn full" id="authSubmit" type="submit">Masuk</button>
+  </form>
+  <button class="auth-switch" id="authSwitch" type="button" onclick="toggleLocalAuthMode()">Belum punya akun? Daftar</button>
+  <div class="auth-foot">Akun KhaKerja digunakan untuk mengakses layanan dan menyimpan aktivitas Anda.</div>
+ </div>
+</div>
+
+<header class="top">
+ <div class="brandrow"><div class="logo">K</div><div><div class="brand">KhaKerja</div><div class="subbrand">Temukan peluang, mulai perjalananmu</div></div><button class="header-action" onclick="go('notifikasi')" aria-label="Notifikasi">♧<i id="notificationDot"></i></button><button class="header-action" onclick="toggleTheme()" aria-label="Ubah tema">◐</button><button class="avatar" onclick="go('akun')">K</button></div>
+</header>
+<main class="wrap">
+<div id="pilotNotice" role="note" style="margin:12px 0;padding:12px 14px;border:1px solid #d9eadf;background:#f0f8f2;color:#245a38;border-radius:14px;font-size:12px;line-height:1.55">
+<strong>KhaKerja Pro — Peluang Kerja Bandar Lampung</strong><br>
+Temukan lowongan, ajukan lamaran, dan pantau proses rekrutmen melalui satu platform.
+</div>
+
+ <section id="beranda" class="page active">
+  <div class="welcome">
+   <div class="eyebrow">PLATFORM PELUANG KERJA</div>
+   <h1>Temukan Peluang Kerjamu</h1>
+   <p>Satu langkah lebih dekat menuju pekerjaan yang kamu inginkan.</p>
+   <div class="searchbox"><span>⌕</span><input id="searchHome" placeholder="Cari posisi atau nama perusahaan..." oninput="renderJobs()"><button class="linkbtn" onclick="openSearchResults()">Cari</button></div>
+   <div class="location">📍 Area layanan: Bandar Lampung</div>
+  </div>
+  <section class="quick-stats" aria-label="Ringkasan KhaKerja">
+   <div class="stat-card"><span class="stat-icon">▤</span><div><b id="statOpenJobs">0</b><small>Lowongan aktif</small></div></div>
+   <div class="stat-card"><span class="stat-icon">♡</span><div><b id="statSavedJobs">0</b><small>Disimpan</small></div></div>
+   <div class="stat-card"><span class="stat-icon">▣</span><div><b id="statApplications">0</b><small>Lamaran saya</small></div></div>
+  </section>
+  <section class="section">
+   <div class="sectionhead"><h2>Jelajahi Kategori</h2><span class="pill">PILIH MINATMU</span></div>
+   <p class="sectiondesc">Jelajahi peluang kerja di wilayah Bandar Lampung.</p>
+   <div class="categories" id="homeCategories"></div>
+  </section>
+  <section class="section">
+   <div class="sectionhead"><h2>Lowongan Terbaru</h2><button class="linkbtn" onclick="go('jelajahi')">Lihat Semua →</button></div>
+   <p class="sectiondesc">Peluang pekerjaan yang bisa kamu jelajahi.</p>
+   <div class="joblist" id="homeJobs"></div>
+  </section>
+  <div class="banner"><div class="bannericon">🏢</div><div><strong>Punya usaha dan sedang mencari pekerja?</strong><p>Daftarkan perusahaanmu. Lowongan akan ditinjau admin sebelum dipublikasikan.</p></div><button class="btn secondary" onclick="go('perusahaan')">Mulai</button></div>
+ </section>
+
+ <section id="jelajahi" class="page explore-simple">
+  <div class="explore-heading"><div><div class="eyebrow">TEMUKAN PELUANG</div><div class="page-title">Cari pekerjaan</div><p class="muted">Mulai dari posisi atau lokasi yang kamu inginkan.</p></div></div>
+  <div class="section explore-search-card">
+   <div class="field"><label for="searchExplore">Posisi atau perusahaan</label><input id="searchExplore" placeholder="Contoh: Admin, kasir, barista — Bandar Lampung" oninput="renderJobs()"></div>
+   <div class="field"><label for="filterLocation">Lokasi</label><input id="filterLocation" placeholder="Kota atau kabupaten" oninput="renderJobs()"><div class="filter-note">Boleh isi sampai 5 lokasi, pisahkan dengan koma.</div></div>
+   <button class="btn full explore-submit" type="button" onclick="renderJobs();document.getElementById('exploreResults').scrollIntoView({behavior:'smooth',block:'start'})">Cari lowongan <span>→</span></button>
+   <details class="advanced-filters"><summary><span>Filter lainnya</span><small>Kategori, jenis, tanggal, dan lainnya</small></summary>
+    <div class="advanced-inner">
+     <div class="row"><div class="field"><label>Kategori</label><select id="filterCategory" onchange="renderJobs()"><option value="">Semua kategori</option></select></div><div class="field"><label>Jenis kerja</label><select id="filterType" onchange="renderJobs()"><option value="">Semua jenis</option><option>Full-time</option><option>Part-time</option><option>Freelance</option><option>Magang</option></select></div></div>
+     <div class="row"><div class="field"><label>Tanggal publikasi</label><select id="filterDate" onchange="renderJobs()"><option value="">Semua tanggal</option><option value="today">Hari ini</option><option value="7">7 hari terakhir</option><option value="30">30 hari terakhir</option></select></div><div class="field"><label>Sistem kerja</label><select id="filterMode" onchange="renderJobs()"><option value="">Semua sistem</option><option value="Di lokasi">Di lokasi</option><option value="Hybrid">Hybrid</option><option value="Remote">Remote</option></select></div></div>
+     <div class="row"><div class="field"><label>Urutkan</label><select id="sortJobs" onchange="renderJobs()"><option value="relevant">Paling relevan</option><option value="newest">Terbaru</option><option value="salaryHigh">Gaji tertinggi</option><option value="salaryLow">Gaji terendah</option><option value="az">Nama posisi A–Z</option></select></div><div class="field"><label>Pendidikan</label><select id="filterEducation" onchange="renderJobs()"><option value="">Semua pendidikan</option><option>SMA/SMK</option><option>D3</option><option>S1</option><option>Bebas / Tidak disebutkan</option></select></div></div>
+     <button class="btn outline" type="button" onclick="resetFilters()">↺ Reset filter</button>
+    </div>
+   </details>
+  </div>
+  <div class="section explore-results" id="exploreResults"><div class="sectionhead"><div><h2>Lowongan tersedia</h2><p class="muted">Pilih pekerjaan untuk melihat detailnya.</p></div><span class="pill" id="resultCount">0 LOWONGAN</span></div><div class="joblist" id="exploreJobs"></div></div>
+ </section>
+
+ <section id="lamaran" class="page">
+  <div class="page-title">Lamaran Saya</div><p class="muted">Pantau simulasi lamaran yang tersimpan pada browser ini.</p>
+  <div class="section" id="applications"><div class="empty">Belum ada lamaran. Lowongan terverifikasi akan muncul setelah mitra usaha bergabung.</div></div>
+ </section>
+
+ <section id="perusahaan" class="page">
+  <div class="page-title">Untuk Perusahaan</div><p class="muted">Ajukan lowongan dan tinjau simulasi lamaran pada perangkat ini.</p>
+  <div class="section">
+   <div class="sectionhead"><h2>Pasang Lowongan</h2><span class="pill">TINJAU ADMIN</span></div>
+   <p class="sectiondesc">Lengkapi informasi perusahaan dan pekerjaan. Lowongan baru berstatus menunggu verifikasi admin.</p>
+   <form id="jobForm" onsubmit="submitJob(event)">
+    <div class="field"><label>Nama perusahaan / usaha *</label><input name="company" required placeholder="Nama usaha kamu"></div>
+    <div class="field"><label>Nama posisi pekerjaan *</label><input name="title" required placeholder="Contoh: Staf Administrasi"></div>
+    <div class="row"><div class="field"><label>Kategori *</label><select name="category" required class="catSelect"></select></div><div class="field"><label>Jenis kerja *</label><select name="type" required><option>Full-time</option><option>Part-time</option><option>Freelance</option><option>Magang</option></select></div></div>
+    <div class="field"><label>Lokasi pekerjaan *</label><input name="location" required placeholder="Bandar Lampung"></div>
+    <div class="field"><label>Sistem kerja</label><select name="workMode"><option>Di lokasi</option><option>Hybrid</option><option>Remote</option></select></div>
+    <div class="field"><label>Batas akhir lamaran</label><input name="deadline" type="date"></div>
+    <div class="field"><label>Gaji / upah</label><input name="salary" placeholder="Contoh: Rp2.500.000 - Rp3.500.000"></div><div class="row"><div class="field"><label>Hari kerja</label><input name="workDays" placeholder="Senin–Jumat"></div><div class="field"><label>Jam kerja</label><input name="workHours" placeholder="08.00–17.00"></div></div>
+    <div class="field"><label>Pendidikan minimum</label><select name="education"><option>Bebas / Tidak disebutkan</option><option>SMA/SMK</option><option>D3</option><option>S1</option></select></div>
+    <div class="field"><label>Deskripsi pekerjaan *</label><textarea name="description" required placeholder="Jelaskan tugas dan tanggung jawab..."></textarea></div>
+    <div class="field"><label>Persyaratan pelamar</label><textarea name="requirements" placeholder="Tuliskan persyaratan yang dibutuhkan..."></textarea></div>
+    <div class="field"><label>Nomor WhatsApp perusahaan</label><input name="contact" type="tel" inputmode="tel" placeholder="Contoh: 081234567890"><small>Isi nomor WhatsApp aktif agar pencari kerja bisa menghubungi perusahaan langsung.</small></div>
+    <button class="btn full" type="submit">Kirim untuk Verifikasi Admin</button>
+   </form>
+  </div>
+  <div class="section"><h2>Lowongan yang Saya Buat</h2><p class="sectiondesc">Daftar pengajuan berdasarkan email profil pada perangkat ini.</p><div id="employerJobs" class="empty">Belum ada lowongan yang dibuat.</div></div>
+  <div class="section"><h2>Lamaran Masuk</h2><p class="sectiondesc">Pelamar yang mengirim lamaran pada data demo lokal.</p><div id="employerApplications" class="empty">Belum ada lamaran masuk.</div></div>
+ </section>
+
+ <section id="admin" class="page admin-workspace">
+<div class="small-note" style="margin:12px 0">
+  <b>Catatan mode:</b> Jika aplikasi belum dihubungkan ke server/Google Sheets,
+  perubahan persetujuan dan data hanya tersimpan di perangkat ini (mode demo),
+  belum menjadi publik untuk semua pengguna.
+</div>
+
+  <div class="admin-topline"><div><div class="eyebrow">KHAKERJA CONTROL CENTER</div><div class="page-title">Dashboard Admin</div><p class="muted">Pusat pemeriksaan perusahaan, verifikasi lowongan, dan pemantauan publikasi.</p></div><span class="admin-status">MODE DEMO</span></div>
+  <div class="admin-warning"><b>Pratinjau panel admin</b><span>Panel ini hanya simulasi lokal dan bukan panel admin yang aman. Siapa pun yang membuka file ini dapat mengubah status lowongan di perangkatnya. Untuk produksi, wajib ada login, hak akses, dan validasi di server; jangan gunakan panel ini untuk keputusan rekrutmen sungguhan.</span></div>
+  <div class="admin-stats"><div class="admin-stat"><small>Menunggu</small><strong id="adminPendingStat">0</strong></div><div class="admin-stat"><small>Disetujui</small><strong id="adminApprovedStat">0</strong></div><div class="admin-stat"><small>Ditolak</small><strong id="adminRejectedStat">0</strong></div><div class="admin-stat"><small>Total pengajuan</small><strong id="adminTotalStat">0</strong></div></div>
+  <div class="section admin-section"><div class="sectionhead"><div><h2>Perlu Ditinjau</h2><p class="sectiondesc">Periksa identitas perusahaan dan kelengkapan informasi sebelum mengambil keputusan.</p></div><span class="pill" id="pendingCount">0 PENDING</span></div><div id="pendingJobs" class="empty">Tidak ada pengajuan yang menunggu.</div></div>
+  <div class="section admin-section"><h2>Lowongan Dipublikasikan</h2><p class="sectiondesc">Daftar pengajuan yang telah disetujui.</p><div id="approvedJobs" class="empty">Belum ada lowongan disetujui.</div></div>
+  <div class="section admin-section"><h2>Riwayat Penolakan</h2><p class="sectiondesc">Pengajuan yang ditolak beserta catatan pemeriksaan.</p><div id="rejectedJobs" class="empty">Tidak ada pengajuan ditolak.</div></div>
+ </section>
+
+ <section id="tersimpan" class="page">
+  <div class="page-title">Lowongan Tersimpan</div><p class="muted">Kumpulan pekerjaan yang kamu tandai untuk dilihat kembali.</p>
+  <div class="section"><div class="sectionhead"><h2>Daftar Simpanan</h2><span class="pill" id="savedCount">0 TERSIMPAN</span></div><div class="joblist" id="savedJobs"></div></div>
+ </section>
+ <section id="formLamaran" class="page">
+  <div class="page-title">Formulir Lamaran</div><p class="muted">Lengkapi informasi berikut sebelum mengirim lamaran.</p>
+  <div class="section"><div id="applyForJob" class="banner"><div><strong id="applyJobTitle">Pekerjaan</strong><p id="applyCompany">Perusahaan</p></div></div>
+   <form id="applicationForm" onsubmit="submitApplication(event)">
+    <div class="field"><label>Nama lengkap *</label><input name="applicantName" id="applicantName" required autocomplete="name" placeholder="Nama sesuai identitas"></div>
+    <div class="field"><label>Email aktif *</label><input name="applicantEmail" id="applicantEmail" type="email" required autocomplete="email" placeholder="nama@email.com"></div>
+    <div class="field"><label>Nomor telepon *</label><input name="applicantPhone" id="applicantPhone" type="tel" required autocomplete="tel" placeholder="08xxxxxxxxxx"></div>
+    <div class="field"><label for="cvFile">Pilih berkas CV untuk simulasi (PDF, DOC, DOCX; maksimal 3 MB) *</label><input name="cvFile" id="cvFile" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required><small class="muted">Penting: file CV tidak diunggah atau diteruskan ke perusahaan. Prototipe ini hanya memeriksa format, ukuran, dan menyimpan nama file sebagai simulasi.</small></div>
+    <div class="field"><label>Pesan pengantar</label><textarea name="coverNote" placeholder="Ceritakan secara singkat alasan kamu cocok untuk pekerjaan ini..."></textarea></div>
+    <p class="muted small-note"><b>Mode prototipe:</b> data formulir dan nama file CV disimpan di browser ini saja. Isi file CV tidak disimpan maupun dikirim. Jangan gunakan CV asli sampai sistem unggah aman dan kebijakan privasi tersedia.</p>
+    <button class="btn full" type="submit">Kirim Lamaran</button><button class="btn outline full" type="button" style="margin-top:8px" onclick="go('detail')">Kembali ke detail</button>
+   </form>
+  </div>
+ </section>
+ <section id="akun" class="page account-page">
+  <div class="account-heading">
+   <div><div class="eyebrow account-eyebrow">PENGATURAN</div><div class="page-title">Akun Saya</div><p class="muted">Kelola profil dan preferensi akun KhaKerja.</p></div>
+  </div>
+  <div class="account-card profile-card">
+   <div class="profile-cover"></div>
+   <div class="profile-main">
+    <div class="profile-avatar" id="profileAvatar">K</div>
+    <div class="profile-copy"><strong id="profileName">Pengguna KhaKerja</strong><span>Pencari kerja</span><small>Profil pribadi</small></div>
+   </div>
+   <div class="account-divider"></div>
+   <div class="field"><label for="nameInput">Nama lengkap</label><input id="nameInput" placeholder="Masukkan nama lengkap" autocomplete="name"></div>
+   <div class="field"><label for="emailInput">Alamat email</label><input id="emailInput" type="email" placeholder="nama@email.com" autocomplete="email"></div>
+   <div class="field"><label for="phoneInput">Nomor telepon</label><input id="phoneInput" type="tel" placeholder="08xxxxxxxxxx" autocomplete="tel"></div>
+   <div class="field"><label for="cityInput">Domisili</label><input id="cityInput" placeholder="Kota / Kabupaten"></div>
+   <div class="field"><label for="educationInput">Pendidikan terakhir</label><select id="educationInput"><option value="">Pilih pendidikan</option><option>SMP</option><option>SMA/SMK</option><option>D1</option><option>D2</option><option>D3</option><option>S1</option><option>S2</option><option>Lainnya</option></select></div>
+   <button class="btn full save-profile-btn" onclick="saveProfile()">Simpan perubahan <span>→</span></button>
+   <button class="btn outline full" style="margin-top:10px" onclick="logoutLocal()">Keluar dari akun</button>
+  </div>
+  <div class="account-card menu-card">
+   <div class="menu-heading"><div><h2>Menu lainnya</h2><p>Kelola kebutuhan akun dan aktivitas.</p></div><span class="menu-heading-icon">⚙</span></div>
+   <button class="account-menu-item" onclick="go('tersimpan')"><span class="menu-icon">♡</span><span><b>Lowongan Tersimpan</b><small>Lihat pekerjaan yang kamu tandai</small></span><span class="menu-arrow">›</span></button>
+   <button class="account-menu-item" onclick="go('perusahaan')"><span class="menu-icon">▦</span><span><b>Area Perusahaan</b><small>Kelola dan pasang lowongan kerja</small></span><span class="menu-arrow">›</span></button>
+   <button class="account-menu-item" onclick="go('admin')"><span class="menu-icon">✓</span><span><b>Panel Demo Admin</b><small>Verifikasi pengajuan lowongan (mode lokal)</small></span><span class="menu-arrow">›</span></button>
+   <button class="account-menu-item" onclick="exportBackup()"><span class="menu-icon">⇩</span><span><b>Cadangkan data</b><small>Unduh salinan data KhaKerja di perangkat ini</small></span><span class="menu-arrow">›</span></button>
+   <label class="account-menu-item restore-menu"><span class="menu-icon">⇧</span><span><b>Pulihkan cadangan</b><small>Impor file cadangan KhaKerja berformat JSON</small></span><span class="menu-arrow">›</span><input type="file" accept="application/json,.json" onchange="importBackup(event)" hidden></label>
+   <button class="account-menu-item danger-menu" onclick="resetDemo()"><span class="menu-icon">↻</span><span><b>Reset data demo</b><small>Hapus data yang tersimpan di perangkat</small></span><span class="menu-arrow">›</span></button>
+  </div>
+  <div class="account-footer"><span class="footer-mark">K</span><b>KhaKerja</b><p>Temukan peluang. Bangun masa depan.</p><small>© 2026 KhaKerja Pro · Pilot Bandar Lampung · V5</small></div>
+ </section>
+
+ <section id="notifikasi" class="page">
+  <div class="page-title">Pusat Aktivitas</div><p class="muted">Ringkasan aktivitas lamaran dan pekerjaan pada perangkat ini.</p>
+  <div class="section"><div class="sectionhead"><h2>Notifikasi</h2><button class="linkbtn" onclick="markNotificationsRead()">Tandai dibaca</button></div><div id="notificationList"></div></div>
+ </section>
+ <section id="detail" class="page">
+  <div class="detailhead"><button class="back" onclick="go(lastPage)">← Kembali</button><span class="muted">Detail Pekerjaan</span></div>
+  <div id="detailContent"></div>
+ </section>
+</main>
+<nav class="bottom">
+ <button class="nav active" data-page="beranda" onclick="go('beranda')"><span class="nicon">⌂</span>Beranda</button>
+ <button class="nav" data-page="jelajahi" onclick="go('jelajahi')"><span class="nicon">⌕</span>Jelajahi</button>
+ <button class="nav" data-page="lamaran" onclick="go('lamaran')"><span class="nicon">▤</span>Lamaran</button>
+ <button class="nav" data-page="tersimpan" onclick="go('tersimpan')"><span class="nicon">♡</span>Disimpan</button>
+ <button class="nav" data-page="perusahaan" onclick="go('perusahaan')"><span class="nicon">♧</span>Perusahaan</button>
+ <button class="nav" data-page="akun" onclick="go('akun')"><span class="nicon">♙</span>Akun</button>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+
+const KHAKERJA_API_URL = 'https://script.google.com/macros/s/AKfycbx-fKWSMrO-BEtBE1VIE1ywE4WxU3mIIUyzJsoTUm6hdlRNEUEOcDM6Xp51DTSN_Ax0/exec';
+let serverToken = localStorage.getItem('khakerja_api_token') || '';
+let currentUser = null;
+async function apiCall(action, payload={}) {
+  const response = await fetch(KHAKERJA_API_URL, {
+    method: 'POST',
+    headers: {'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify({action, token:serverToken, ...payload}),
+    redirect: 'follow'
+  });
+  const result = await response.json();
+  if (!result || result.ok !== true) throw new Error(result?.error || 'Server tidak memberikan respons yang benar.');
+  return result.data;
+}
+function persistLocal(){
+  try {
+    localStorage.setItem('kerjain_jobs',JSON.stringify(jobs));
+    localStorage.setItem('kerjain_apps',JSON.stringify(apps));
+    localStorage.setItem('kerjain_profile',JSON.stringify(profile));
+    localStorage.setItem('kerjain_saved',JSON.stringify(savedJobs));
+  } catch(e) { console.warn('Cache lokal tidak dapat disimpan',e); }
+}
+async function loadCloudData(showMessage=false){
+  const data=await apiCall('getData');
+  currentUser=data.user||null;
+  jobs=Array.isArray(data.jobs)?data.jobs:[];
+  apps=Array.isArray(data.apps)?data.apps:[];
+  profile=data.profile||profile;
+  savedJobs=Array.isArray(data.savedJobs)?data.savedJobs:[];
+  persistLocal();
+  categoryMarkup(); renderJobs(); loadProfile(); renderSaved(); renderNotifications();
+  updateDashboardStats(); renderApps(); renderEmployer();
+  if(showMessage) toast('Data berhasil disinkronkan dengan database.');
+  return data;
+}
+async function restoreServerSession(){
+  if(!serverToken) {
+    document.body.classList.remove('authenticated');
+    document.getElementById('authScreen').classList.remove('hide');
+    return;
+  }
+  try {
+    await loadCloudData();
+    document.body.classList.add('authenticated');
+    document.getElementById('authScreen').classList.add('hide');
+  } catch(err) {
+    localStorage.removeItem('khakerja_api_token'); serverToken='';
+    document.body.classList.remove('authenticated');
+    document.getElementById('authScreen').classList.remove('hide');
+    const error=document.getElementById('authError');
+    error.textContent='Sesi berakhir atau server belum dapat diakses. Silakan masuk kembali. ('+err.message+')';
+    error.style.display='block';
+  }
+}
+
+let localAuthMode='login';
+function toggleLocalAuthMode(){
+ localAuthMode=localAuthMode==='login'?'register':'login';
+ const reg=localAuthMode==='register';
+ document.getElementById('authTitle').textContent=reg?'Buat akun KhaKerja':'Selamat datang kembali';
+ document.getElementById('authSubtitle').textContent=reg?'Daftarkan profil untuk mulai menjelajahi peluang kerja.':'Masuk untuk melanjutkan perjalanan menemukan peluang kerja yang tepat.';
+ document.getElementById('authNameField').classList.toggle('hide',!reg);
+ document.getElementById('authName').required=reg;
+ document.getElementById('authPassword').autocomplete=reg?'new-password':'current-password';
+ document.getElementById('authSubmit').textContent=reg?'Daftar sekarang':'Masuk';
+ document.getElementById('authSwitch').textContent=reg?'Sudah punya akun? Masuk':'Belum punya akun? Daftar';
+ document.getElementById('authError').style.display='none';
+}
+async function submitLocalAuth(e){
+ e.preventDefault();
+ const email=document.getElementById('authEmail').value.trim().toLowerCase();
+ const password=document.getElementById('authPassword').value;
+ const name=document.getElementById('authName').value.trim();
+ const err=document.getElementById('authError');
+ const submit=document.getElementById('authSubmit');
+ if(localAuthMode==='register'&&!name){err.textContent='Nama lengkap perlu diisi.';err.style.display='block';return}
+ if(password.length<8){err.textContent='Kata sandi minimal 8 karakter.';err.style.display='block';return}
+ submit.disabled=true; submit.textContent='Menghubungkan...'; err.style.display='none';
+ try {
+   const data=await apiCall(localAuthMode==='register'?'register':'login', {name,email,password});
+   serverToken=data.token; localStorage.setItem('khakerja_api_token',serverToken);
+   currentUser=data.user||null;
+   await loadCloudData();
+   document.body.classList.add('authenticated');
+   document.getElementById('authScreen').classList.add('hide');
+   loadProfile(); toast(localAuthMode==='register'?'Akun berhasil dibuat.':'Berhasil masuk ke KhaKerja.');
+ } catch(ex) {
+   err.textContent=ex.message||'Gagal menghubungkan ke database.'; err.style.display='block';
+ } finally {
+   submit.disabled=false; submit.textContent=localAuthMode==='register'?'Daftar sekarang':'Masuk';
+ }
+}
+async function logoutLocal(){
+ try { if(serverToken) await apiCall('logout'); } catch(ex) { console.warn(ex); }
+ localStorage.removeItem('khakerja_api_token'); localStorage.removeItem('khakerja_local_session');
+ serverToken=''; currentUser=null;
+ document.body.classList.remove('authenticated');
+ document.getElementById('authScreen').classList.remove('hide');
+ document.getElementById('authForm').reset(); localAuthMode='login';
+ document.getElementById('authTitle').textContent='Selamat datang kembali';
+ document.getElementById('authSubtitle').textContent='Masuk untuk melanjutkan perjalanan menemukan peluang kerja yang tepat.';
+ document.getElementById('authNameField').classList.add('hide');
+ document.getElementById('authName').required=false;
+ document.getElementById('authSubmit').textContent='Masuk';
+ document.getElementById('authSwitch').textContent='Belum punya akun? Daftar';
+}
+const categories=[['Semua','✦'],['Admin','💻'],['Staff Restoran','🍽️'],['Sales','🛍️'],['Customer Service','🎧'],['Operator Data','⌨️'],['Freelance','💡'],['Lainnya','•••']];
+const initialJobs=[];
+const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
+let jobs=load('kerjain_jobs',initialJobs),apps=load('kerjain_apps',[]),profile=load('kerjain_profile',{name:'Pengguna KhaKerja',email:'',phone:'',city:'',education:''}),lastPage='beranda',selectedJob=null,activeCategory='',pendingApplicationJobId=null;
+let savedJobs=load('kerjain_saved',[]);
+const save=()=>{persistLocal();return true};
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display='none',2600)}
+function go(page){if(page!=='detail'&&page!=='formLamaran')lastPage=page;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let target=document.getElementById(page);if(!target)return;target.classList.add('active');document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.page===page));if(page==='lamaran')renderApps();if(page==='perusahaan')renderEmployer();if(page==='admin')renderAdmin();if(page==='akun')loadProfile();if(page==='tersimpan')renderSaved();if(page==='notifikasi')renderNotifications();window.scrollTo({top:0,behavior:'smooth'})}
+function categoryMarkup(){document.getElementById('homeCategories').innerHTML=categories.map(([n,i])=>`<button class="cat ${activeCategory===n?'active':''}" onclick="chooseCategory('${n}')"><span class="ico">${i}</span>${n}</button>`).join('');document.getElementById('filterCategory').innerHTML='<option value="">Semua kategori</option>'+categories.slice(1).map(([n])=>`<option>${n}</option>`).join('');document.querySelectorAll('.catSelect').forEach(s=>s.innerHTML=categories.slice(1).map(([n])=>`<option>${n}</option>`).join(''))}
+function chooseCategory(c){activeCategory=c==='Semua'?'':c;document.getElementById('filterCategory').value=activeCategory;go('jelajahi');renderJobs()}
+function isSaved(id){return savedJobs.some(x=>String(x)===String(id))}
+async function toggleSaved(id,event){if(event)event.stopPropagation();try{const result=await apiCall('toggleSaved',{jobId:String(id)});if(result.saved)savedJobs.push(String(id));else savedJobs=savedJobs.filter(x=>String(x)!==String(id));save();renderJobs();renderSaved();if(selectedJob&&String(selectedJob.id)===String(id))openJob(id);toast(result.saved?'Lowongan ditambahkan ke simpanan.':'Lowongan dihapus dari simpanan.')}catch(ex){toast('Gagal menyimpan: '+ex.message)}}
+function jobCard(j){return `<article class="job" onclick="openJob('${String(j.id)}')"><div class="job-card-top"><div class="companylogo">${esc((j.company||'K').slice(0,2).toUpperCase())}</div><button class="save-chip ${isSaved(j.id)?'saved':''}" aria-label="Simpan lowongan" onclick="toggleSaved('${String(j.id)}',event)">${isSaved(j.id)?'♥':'♡'}</button></div><div class="jobtitle">${esc(j.title)}</div><div class="company">${esc(j.company)}</div><div class="meta">📍 ${esc(j.location)}</div><div class="meta">${esc(j.workMode||'Di lokasi')} · ${esc(j.education||'Tidak disebutkan')}</div><div class="salary">${esc(j.salary||'Gaji dibicarakan')}</div><span class="tag">${esc(j.type)} · ${esc(j.category)}</span><div class="date">${j.isDemo?'Contoh lowongan':esc(j.date||'Baru ditambahkan')}</div></article>`}
+function salaryValue(j){let t=String(j.salary||'').replace(/\./g,'').replace(/,/g,'.');let nums=[...t.matchAll(/(?:rp\s*)?(\d+(?:\.\d+)?)/ig)].map(m=>Number(m[1]));if(!nums.length)return 0;let mult=/juta|jt/i.test(t)?1000000:/ribu|rb/i.test(t)?1000:1;return nums.reduce((a,b)=>a+b,0)/nums.length*mult}
+function renderJobs(){
+ let q=(document.getElementById('jelajahi')?.classList.contains('active')?(document.getElementById('searchExplore')?.value||''):(document.getElementById('searchHome')?.value||'')).trim().toLowerCase();
+ let cat=document.getElementById('filterCategory')?.value||activeCategory,typ=document.getElementById('filterType')?.value||'';
+ let rawLoc=(document.getElementById('filterLocation')?.value||'').trim(),locs=rawLoc.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean).slice(0,5);
+ let dateFilter=document.getElementById('filterDate')?.value||'',mode=document.getElementById('filterMode')?.value||'',edu=document.getElementById('filterEducation')?.value||'',sort=document.getElementById('sortJobs')?.value||'relevant';
+ let approved=jobs.filter(j=>j.approved&&j.status!=='rejected'&&(!j.deadline||j.deadline>=new Date().toISOString().slice(0,10)));
+ let matches=j=>{let hay=`${j.title} ${j.company} ${j.category} ${j.location} ${j.description||''} ${j.requirements||''}`.toLowerCase();let dateOK=true;if(dateFilter){let d=j.dateISO?new Date(j.dateISO+'T00:00:00'):null,now=new Date();now.setHours(0,0,0,0);if(!d||j.isDemo)dateOK=false;else if(dateFilter==='today')dateOK=d.getTime()===now.getTime();else dateOK=(now-d)>=0&&(now-d)<=Number(dateFilter)*86400000}let locationOK=!locs.length||locs.some(loc=>String(j.location||'').toLowerCase().includes(loc));return (!q||hay.includes(q))&&(!cat||j.category===cat)&&(!typ||j.type===typ)&&(!mode||(j.workMode||'Di lokasi')===mode)&&(!edu||j.education===edu)&&locationOK&&dateOK};
+ let home=approved.filter(j=>{let h=`${j.title} ${j.company} ${j.category} ${j.location}`.toLowerCase();return !q||h.includes(q)});
+ let list=approved.filter(matches);if(sort==='newest')list.sort((a,b)=>(b.dateISO||'').localeCompare(a.dateISO||''));if(sort==='salaryHigh')list.sort((a,b)=>salaryValue(b)-salaryValue(a));if(sort==='salaryLow')list.sort((a,b)=>salaryValue(a)-salaryValue(b));if(sort==='az')list.sort((a,b)=>String(a.title).localeCompare(String(b.title),'id'));
+ document.getElementById('homeJobs').innerHTML=home.length?home.slice(0,6).map(jobCard).join(''):'<div class="empty"><b>Belum ada lowongan terverifikasi.</b><br>Lowongan akan tampil setelah perusahaan mengirim pengajuan dan admin menyetujuinya.<br><button class="btn secondary" style="margin-top:12px" onclick="go(\'perusahaan\')">Daftarkan lowongan</button></div>';
+ document.getElementById('exploreJobs').innerHTML=list.length?list.map(jobCard).join(''):'<div class="empty"><b>Belum ada lowongan yang cocok.</b><br>Coba ubah kata kunci atau filter. Jika ini uji coba pertama, daftar lowongan masih menunggu perusahaan bergabung dan diverifikasi.</div>';
+ document.getElementById('resultCount').textContent=list.length+' LOWONGAN';let summary=document.getElementById('filterSummary');if(summary)summary.textContent=locs.length?`Lokasi: ${locs.join(', ')}`:'Filter aktif menyesuaikan pilihan';updateDashboardStats();
+}
+function openMapLocationForJob(id){const j=jobs.find(x=>String(x.id)===String(id));if(!j){toast('Lowongan tidak ditemukan.');return;}openMapLocation([j.title,j.company,j.location].filter(Boolean).join(' '));}
+function openMapLocation(query){
+ const safeQuery=String(query||'').trim();
+ if(!safeQuery){toast('Lokasi pekerjaan belum tersedia.');return;}
+ const mapsUrl='https://www.google.com/maps/search/'+encodeURIComponent(safeQuery);
+ window.location.assign(mapsUrl);
+}
+function openJob(id){selectedJob=jobs.find(j=>String(j.id)===String(id));if(!selectedJob)return;let j=selectedJob;let pub=j.dateISO?new Date(j.dateISO+'T00:00:00'):null;let dateText=pub?pub.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):(j.isDemo?'Contoh data lowongan':esc(j.date||'Belum dicantumkan'));let mapQuery=encodeURIComponent([j.title,j.company,j.location].filter(Boolean).join(' '));
+ document.getElementById('detailContent').innerHTML=`<div class="section" style="margin-top:16px"><div class="detailhead"><div class="companylogo" style="width:58px;height:58px">${esc((j.company||'K').slice(0,2).toUpperCase())}</div><div style="min-width:0;flex:1"><strong>${esc(j.company)}</strong><div class="muted">${esc(j.location)}</div></div><span class="status ok">Terverbitkan</span></div><div class="detailtitle">${esc(j.title)}</div><div class="detail-meta-grid"><div class="detail-meta-item"><small>Lokasi kerja</small><strong>📍 ${esc(j.location)}</strong></div><div class="detail-meta-item"><small>Jenis pekerjaan</small><strong>${esc(j.type)}</strong></div><div class="detail-meta-item"><small>Sistem kerja</small><strong>${esc(j.workMode||'Di lokasi')}</strong></div><div class="detail-meta-item"><small>Gaji / upah</small><strong class="salary">${esc(j.salary||'Dibicarakan')}</strong></div><div class="detail-meta-item"><small>Pendidikan minimum</small><strong>${esc(j.education||'Tidak disebutkan')}</strong></div><div class="detail-meta-item"><small>Hari kerja</small><strong>${esc(j.workDays||'Belum dicantumkan')}</strong></div><div class="detail-meta-item"><small>Jam kerja</small><strong>${esc(j.workHours||'Belum dicantumkan')}</strong></div><div class="detail-meta-item"><small>Tanggal publikasi</small><strong>${dateText}</strong></div><div class="detail-meta-item"><small>Tahun publikasi</small><strong>${pub?pub.getFullYear():'—'}</strong></div><div class="detail-meta-item"><small>Batas lamaran</small><strong>${j.deadline?new Date(j.deadline+'T00:00:00').toLocaleDateString('id-ID'):'Tidak ditentukan'}</strong></div></div><button class="btn mapbtn" type="button" onclick="openMapLocationForJob('${String(j.id)}')" aria-label="Buka lokasi pekerjaan di Google Maps">📍 Buka lokasi di Google Maps</button><button class="btn outline full" style="margin-top:9px" onclick="toggleSaved('${String(j.id)}')">${isSaved(j.id)?'♥ Hapus dari Tersimpan':'♡ Simpan Lowongan'}</button><button class="btn secondary full" style="margin-top:8px" onclick="shareJob('${String(j.id)}')">↗ Bagikan lowongan</button></div><div class="section"><div class="detailblock"><h3>Deskripsi Pekerjaan</h3><p>${esc(j.description||'Belum tersedia.').replace(/\n/g,'<br>')}</p></div><div class="detailblock"><h3>Persyaratan</h3><p>${esc(j.requirements||'Belum dicantumkan oleh perusahaan.')}</p></div><div class="detailblock"><h3>Informasi Perusahaan</h3><p>${esc(j.company)}<br>${esc(j.location)}</p>${companyWhatsAppMarkup(j)}</div><button class="btn full" onclick="startApplication('${String(j.id)}')">Kirim Lamaran</button></div>`;go('detail');}
+function startApplication(id){let j=jobs.find(x=>String(x.id)===String(id));if(!j)return;if(!j.approved||j.status==='rejected'||(j.deadline&&j.deadline<new Date().toISOString().slice(0,10))){toast('Lowongan ini tidak sedang menerima lamaran.');return;}if(apps.some(a=>String(a.jobId)===String(id)&&a.applicantEmail===(profile.email||''))){toast('Kamu sudah melamar lowongan ini dengan email tersebut.');return}pendingApplicationJobId=id;document.getElementById('applyJobTitle').textContent=j.title;document.getElementById('applyCompany').textContent=j.company+' · '+j.location;document.getElementById('applicantName').value=profile.name||'';document.getElementById('applicantEmail').value=profile.email||'';document.getElementById('applicantPhone').value=profile.phone||'';go('formLamaran')}
+async function submitApplication(e){
+ e.preventDefault();
+ const j=jobs.find(x=>String(x.id)===String(pendingApplicationJobId));
+ if(!j){toast('Lowongan tidak ditemukan.');return;}
+ const form=e.target, f=document.getElementById('cvFile').files[0];
+ if(!f){toast('Pilih berkas CV terlebih dahulu.');return;}
+ if(f.size>3*1024*1024){toast('Ukuran CV maksimal 3 MB.');return;}
+ const ext=f.name.split('.').pop().toLowerCase();
+ if(!['pdf','doc','docx'].includes(ext)){toast('Format CV harus PDF, DOC, atau DOCX.');return;}
+ const d=Object.fromEntries(new FormData(form).entries());
+ if(apps.some(a=>String(a.jobId)===String(j.id)&&String(a.applicantEmail||'').toLowerCase()===String(d.applicantEmail||'').trim().toLowerCase())){toast('Email ini sudah digunakan untuk melamar lowongan tersebut.');return;}
+ try {
+   await apiCall('submitApplication',{application:{jobId:String(j.id),applicantName:d.applicantName,applicantEmail:d.applicantEmail,applicantPhone:d.applicantPhone,cvFileName:f.name,cvFileSize:f.size,coverNote:d.coverNote||''}});
+   profile={...profile,name:d.applicantName,email:d.applicantEmail,phone:d.applicantPhone};
+   await loadCloudData(); form.reset(); pendingApplicationJobId=null;
+   toast('Lamaran berhasil dikirim dan tersimpan di database.'); go('lamaran');
+ } catch(ex){toast('Lamaran gagal dikirim: '+ex.message);}
+}
+function renderSaved(){let list=jobs.filter(j=>isSaved(j.id)&&j.approved);document.getElementById('savedCount').textContent=list.length+' TERSIMPAN';document.getElementById('savedJobs').innerHTML=list.length?list.map(jobCard).join(''):'<div class="empty">Belum ada lowongan tersimpan. Tekan ikon ♡ pada kartu pekerjaan untuk menyimpannya.</div>'}
+function renderApps(){let el=document.getElementById('applications');el.innerHTML=apps.length?apps.map(a=>`<div class="application-card"><div class="application-card-head"><div><b>${esc(a.title)}</b><div class="muted">${esc(a.company)} · ${esc(a.date||'')}</div></div><span class="status ${a.status&&a.status.toLowerCase().includes('diterima')?'ok':''}">${esc(a.status||'Diproses')}</span></div><div class="application-meta">Pelamar: ${esc(a.applicantName||profile.name||'Pengguna')} · CV: ${esc(a.cvFileName||'Belum dilampirkan')}</div></div>`).join(''):'<div class="empty">Belum ada lamaran. Lowongan terverifikasi akan muncul setelah mitra usaha bergabung.</div>'}
+async function submitJob(e){
+ e.preventDefault(); const d=Object.fromEntries(new FormData(e.target).entries());
+ try {
+   await apiCall('submitJob',{job:d});
+   await loadCloudData(); e.target.reset();
+   toast('Lowongan berhasil diajukan dan menunggu verifikasi admin.');
+   renderEmployer(); go('perusahaan');
+ } catch(ex){toast('Pengajuan lowongan gagal: '+ex.message);}
+}
+function renderEmployer(){let owner=(profile.email||'demo-perusahaan@lokal').trim().toLowerCase();let mine=jobs.filter(j=>!j.isDemo&&(j.ownerEmail||'').toLowerCase()===owner);let el=document.getElementById('employerJobs');el.innerHTML=mine.length?mine.map(j=>`<div class="detailblock"><b>${esc(j.title)}</b><div class="muted">${esc(j.company)} · ${esc(j.location)}</div><span class="status ${j.approved?'ok':''}">${j.approved?'Dipublikasikan':j.status==='rejected'?'Ditolak':'Menunggu verifikasi'}</span></div>`).join(''):'<div class="empty">Belum ada lowongan yang dibuat dengan email profil ini.</div>';let mineApps=apps.filter(a=>(a.ownerEmail||'').toLowerCase()===owner);let appEl=document.getElementById('employerApplications');if(appEl)appEl.innerHTML=mineApps.length?mineApps.map(a=>`<div class="detailblock"><b>${esc(a.applicantName||'Pelamar')}</b><div class="muted">${esc(a.title)} · ${esc(a.applicantEmail||'')}</div><div class="muted">Telepon: ${esc(a.applicantPhone||'—')} · CV: ${esc(a.cvFileName||'—')}</div><div class="muted">${esc(a.coverNote||'Tidak ada pesan pengantar.')}</div><span class="status">${esc(a.status||'Terkirim')}</span> <button class="btn secondary" onclick="updateApplication('${String(a.id)}','Dalam proses')">Proses</button> <button class="btn outline" onclick="updateApplication('${String(a.id)}','Diterima')">Terima</button> <button class="btn outline" onclick="updateApplication('${String(a.id)}','Ditolak')">Tolak</button></div>`).join(''):'<div class="empty">Belum ada lamaran masuk pada data lokal.</div>'}
+async function updateApplication(id,status){
+ const normalized=status==='Dalam proses'?'Diproses':status;
+ try { await apiCall('updateApplication',{id:String(id),status:normalized}); await loadCloudData(); renderEmployer();renderApps();renderNotifications();toast('Status lamaran berhasil diperbarui.'); }
+ catch(ex){toast('Gagal memperbarui status: '+ex.message);}
+}
+function adminWaLink(value,company,title){
+ const n=normalizeWhatsAppNumber(value);
+ if(!n)return '';
+ const msg=encodeURIComponent(`Halo ${company}, saya dari tim verifikasi KhaKerja. Kami sedang memeriksa pengajuan lowongan "${title}". Mohon konfirmasi informasi perusahaan dan lowongan ini.`);
+ return `<a class="admin-wa" href="https://wa.me/${n}?text=${msg}" target="_blank" rel="noopener noreferrer">WhatsApp perusahaan · +${n}</a>`;
+}
+function adminJobCard(j,mode){
+ const field=(label,value)=>`<div class="admin-info"><small>${label}</small><b>${esc(value||'Belum dicantumkan')}</b></div>`;
+ const contact=String(j.contact||'').trim();
+ const noteId=`adminNote'${String(j.id)}'`;
+ return `<article class="admin-job-card">
+  <div class="admin-job-head"><div><h3>${esc(j.title||'Posisi belum diisi')}</h3><div class="admin-company">${esc(j.company||'Nama perusahaan belum diisi')}</div><div class="admin-job-meta">📍 ${esc(j.location||'Lokasi belum diisi')} · Diajukan ${esc(j.date||'Tanggal tidak tersedia')}</div></div><span class="status ${mode==='approved'?'ok':''}">${mode==='pending'?'Menunggu':mode==='approved'?'Disetujui':'Ditolak'}</span></div>
+  <div class="admin-info-grid">
+   ${field('Nama perusahaan',j.company)}
+   ${field('WhatsApp perusahaan',contact)}
+   ${field('Email pemilik',j.ownerEmail)}
+   ${field('Kategori / posisi',`${j.category||'—'} / ${j.title||'—'}`)}
+   ${field('Jenis pekerjaan',j.type)}
+   ${field('Sistem kerja',j.workMode)}
+   ${field('Lokasi',j.location)}
+   ${field('Gaji / upah',j.salary)}
+   ${field('Pendidikan minimum',j.education)}
+   ${field('Hari kerja',j.workDays)}
+   ${field('Jam kerja',j.workHours)}
+   ${field('Batas lamaran',j.deadline)}
+  </div>
+  ${adminWaLink(contact,j.company||'Perusahaan',j.title||'Lowongan')}
+  <div class="admin-description"><b>Deskripsi pekerjaan</b><br>${esc(j.description||'Belum ada deskripsi.')}</div>
+  <div class="admin-description"><b>Persyaratan</b><br>${esc(j.requirements||'Belum dicantumkan.')}</div>
+  <div class="admin-checks"><span>✓ Data posisi</span><span>✓ Informasi kontak</span><span>Perlu validasi admin</span></div>
+  ${mode==='pending'?`<label class="admin-description" for="${noteId}"><b>Catatan pemeriksaan / alasan penolakan</b></label><textarea class="admin-note" id="${noteId}" placeholder="Contoh: Mohon lengkapi alamat atau konfirmasi nomor perusahaan."></textarea><div class="admin-actions"><button class="btn" onclick="moderate('${String(j.id)}',true)">Setujui & publikasikan</button><button class="btn outline" onclick="moderate('${String(j.id)}',false)">Tolak pengajuan</button></div>`:`<div class="admin-description">${mode==='approved'?'Disetujui pada: '+esc(j.approvedAt?new Date(j.approvedAt).toLocaleString('id-ID'):'Tanggal tidak tersedia'):'Catatan: '+esc(j.reviewNote||'Tidak ada catatan.')}</div>`}
+ </article>`;
+}
+function renderAdmin(){
+ const pending=jobs.filter(j=>!j.isDemo&&!j.approved&&j.status!=='rejected');
+ const approved=jobs.filter(j=>j.approved&&!j.isDemo);
+ const rejected=jobs.filter(j=>j.status==='rejected');
+ const total=pending.length+approved.length+rejected.length;
+ document.getElementById('pendingCount').textContent=pending.length+' PENDING';
+ document.getElementById('adminPendingStat').textContent=pending.length;
+ document.getElementById('adminApprovedStat').textContent=approved.length;
+ document.getElementById('adminRejectedStat').textContent=rejected.length;
+ document.getElementById('adminTotalStat').textContent=total;
+ document.getElementById('pendingJobs').innerHTML=pending.length?pending.map(j=>adminJobCard(j,'pending')).join(''):'<div class="empty">Tidak ada pengajuan yang menunggu pemeriksaan.</div>';
+ document.getElementById('approvedJobs').innerHTML=approved.length?approved.map(j=>adminJobCard(j,'approved')).join(''):'<div class="empty">Belum ada lowongan disetujui.</div>';
+ const rej=document.getElementById('rejectedJobs');
+ if(rej)rej.innerHTML=rejected.length?rejected.map(j=>adminJobCard(j,'rejected')).join(''):'<div class="empty">Tidak ada pengajuan ditolak.</div>';
+}
+async function moderate(id,yes){
+ const noteEl=document.getElementById('adminNote'+String(id));
+ const note=noteEl?noteEl.value.trim():'';
+ if(!yes&&!note){toast('Isi alasan penolakan terlebih dahulu.');return;}
+ try { await apiCall('moderate',{id:String(id),approved:!!yes,note}); await loadCloudData();renderAdmin();renderJobs();renderEmployer();toast(yes?'Lowongan berhasil disetujui.':'Pengajuan lowongan ditolak.'); }
+ catch(ex){toast('Moderasi gagal: '+ex.message);}
+}
+async function saveProfile(){
+ const p={name:document.getElementById('nameInput').value.trim()||'Pengguna KhaKerja',phone:document.getElementById('phoneInput').value.trim(),city:document.getElementById('cityInput').value.trim(),education:document.getElementById('educationInput').value};
+ try { await apiCall('saveProfile',{profile:p}); await loadCloudData();loadProfile();toast('Profil berhasil disimpan ke database.'); }
+ catch(ex){toast('Profil gagal disimpan: '+ex.message);}
+}
+function loadProfile(){document.getElementById('nameInput').value=profile.name||'';document.getElementById('emailInput').value=profile.email||'';document.getElementById('phoneInput').value=profile.phone||'';document.getElementById('cityInput').value=profile.city||'';document.getElementById('educationInput').value=profile.education||'';document.getElementById('profileName').textContent=profile.name||'Pengguna KhaKerja';let initial=(profile.name||'K').trim().charAt(0).toUpperCase();document.querySelector('.avatar').textContent=initial;let pa=document.getElementById('profileAvatar');if(pa)pa.textContent=initial}
+function resetDemo(){if(confirm('Hapus seluruh data demo KhaKerja pada perangkat ini, termasuk lowongan, lamaran, simpanan, dan profil?')){['kerjain_jobs','kerjain_apps','kerjain_profile','kerjain_saved','kerjain_read_notifications'].forEach(k=>localStorage.removeItem(k));location.reload()}}
+
+function openSearchResults(){let q=document.getElementById('searchHome').value;document.getElementById('searchExplore').value=q;go('jelajahi');renderJobs()}
+function resetFilters(){['searchExplore','filterCategory','filterType','filterLocation','filterDate','filterMode','filterEducation'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});let sort=document.getElementById('sortJobs');if(sort)sort.value='relevant';activeCategory='';renderJobs();toast('Filter pencarian telah direset.')}
+function updateDashboardStats(){let open=jobs.filter(j=>j.approved&&j.status!=='rejected'&&(!j.deadline||j.deadline>=new Date().toISOString().slice(0,10))).length;[['statOpenJobs',open],['statSavedJobs',savedJobs.length],['statApplications',apps.length]].forEach(([id,n])=>{let e=document.getElementById(id);if(e)e.textContent=n})}
+function jobShareText(j){
+ return `INFO LOWONGAN KERJA\n${j.title}\nPerusahaan: ${j.company}\nLokasi: ${j.location}\nJenis: ${j.type||'Tidak disebutkan'}\nGaji: ${j.salary||'Tidak disebutkan'}\n\nLihat informasi lowongan di KhaKerja.`;
+}
+function shareJob(id){
+ const j=jobs.find(x=>String(x.id)===String(id));if(!j)return;
+ const text=jobShareText(j),url=location.href;
+ if(navigator.share){
+  navigator.share({title:`${j.title} - ${j.company}`,text,url}).then(()=>toast('Menu berbagi dibuka.')).catch(err=>{if(err&&err.name!=='AbortError')showShareOptions(j,text,url)});
+ }else showShareOptions(j,text,url);
+}
+function showShareOptions(j,text,url){
+ let old=document.getElementById('khakerjaShareSheet');if(old)old.remove();
+ const enc=encodeURIComponent(text),page=encodeURIComponent(url);
+ const overlay=document.createElement('div');overlay.id='khakerjaShareSheet';
+ overlay.style.cssText='position:fixed;inset:0;z-index:9999;background:#10231999;display:flex;align-items:flex-end;justify-content:center;padding:14px';
+ overlay.innerHTML=`<div style="background:var(--surface,#fff);color:var(--ink,#172b21);width:100%;max-width:480px;border-radius:22px;padding:20px;box-shadow:0 15px 50px #0004">
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Bagikan lowongan</strong><button type="button" aria-label="Tutup" id="closeShareSheet" style="border:0;background:transparent;font-size:25px;color:inherit">×</button></div>
+ <p style="font-size:13px;color:var(--muted,#718078);margin:0 0 16px">Pilih aplikasi untuk membagikan informasi pekerjaan ini.</p>
+ <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px">
+ <a class="btn full" style="text-align:center;text-decoration:none" href="https://wa.me/?text=${enc}%0A${page}" target="_blank" rel="noopener">WhatsApp</a>
+ <a class="btn secondary full" style="text-align:center;text-decoration:none" href="https://www.facebook.com/sharer/sharer.php?u=${page}&quote=${enc}" target="_blank" rel="noopener">Facebook</a>
+ <a class="btn secondary full" style="text-align:center;text-decoration:none" href="https://t.me/share/url?url=${page}&text=${enc}" target="_blank" rel="noopener">Telegram</a>
+ <a class="btn secondary full" style="text-align:center;text-decoration:none" href="https://twitter.com/intent/tweet?text=${enc}&url=${page}" target="_blank" rel="noopener">X / Twitter</a>
+ <button class="btn secondary full" type="button" id="shareInstagram">Instagram</button>
+ <button class="btn secondary full" type="button" id="copyShareText">Salin informasi</button>
+ <button class="btn secondary full" type="button" id="nativeShareAgain">Aplikasi lainnya</button>
+ </div><small style="display:block;margin-top:12px;color:var(--muted,#718078)">Tekan Instagram untuk membuka menu berbagi Android, lalu pilih Instagram jika tersedia. Instagram tidak menyediakan tautan web umum untuk mengirim teks lowongan langsung.</small></div>`;
+ document.body.appendChild(overlay);
+ document.getElementById('closeShareSheet').onclick=()=>overlay.remove();
+ overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove()});
+ document.getElementById('shareInstagram').onclick=async()=>{
+  if(navigator.share){
+   try{
+    await navigator.share({title:`${j.title} - ${j.company}`,text,url});
+    toast('Pilih Instagram pada daftar aplikasi berbagi jika tersedia.');
+   }catch(e){if(e&&e.name!=='AbortError')toast('Instagram tidak tersedia di menu berbagi perangkat.');}
+  }else{
+   try{await navigator.clipboard.writeText(text+'\\n'+url);toast('Informasi disalin. Buka Instagram dan tempelkan pada pesan atau bio.');}
+   catch(e){toast('Browser ini tidak mendukung berbagi ke Instagram.');}
+  }
+ };
+ document.getElementById('copyShareText').onclick=async()=>{try{await navigator.clipboard.writeText(text);toast('Informasi lowongan disalin.');overlay.remove()}catch(e){toast('Tidak dapat menyalin. Coba gunakan menu berbagi.')}};
+ document.getElementById('nativeShareAgain').onclick=async()=>{if(navigator.share){try{await navigator.share({title:j.title,text,url})}catch(e){}}else toast('Menu berbagi perangkat tidak didukung browser ini.')};
+}
+function normalizeWhatsAppNumber(value){
+ let raw=String(value||'').trim();if(!raw)return '';
+ let digits=raw.replace(/\D/g,'');
+ if(digits.startsWith('0'))digits='62'+digits.slice(1);
+ else if(digits.startsWith('8'))digits='62'+digits;
+ if(digits.length<10||digits.length>15)return '';
+ return digits;
+}
+function companyWhatsAppMarkup(j){
+ const number=normalizeWhatsAppNumber(j.contact);
+ if(!number)return `<p class="muted" style="font-size:12px;margin-top:8px">${esc(j.contact||'Nomor WhatsApp belum dicantumkan oleh perusahaan.')}</p>`;
+ const message=encodeURIComponent(`Halo ${j.company}, saya menemukan lowongan ${j.title} melalui KhaKerja. Apakah lowongan ini masih tersedia?`);
+ return `<a class="btn full" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:10px;text-decoration:none;background:#128c50" href="https://wa.me/${number}?text=${message}" target="_blank" rel="noopener noreferrer">Chat perusahaan melalui WhatsApp</a><small class="muted" style="display:block;margin-top:6px">Nomor: +${number}</small>`;
+}
+function toggleTheme(){document.body.classList.toggle('dark');const t=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('kerjain_theme',t);localStorage.setItem('kerjain_theme_v2',t);toast(t==='dark'?'Mode gelap aktif.':'Mode terang aktif.')}
+function notificationItems(){let items=[];apps.forEach(a=>items.push({icon:'▣',title:`Lamaran: ${a.title}`,body:`${a.company} · Status: ${a.status||'Terkirim'}`,date:a.date||'',key:'app-'+a.id}));jobs.filter(j=>!j.isDemo).forEach(j=>items.push({icon:j.approved?'✓':'◷',title:`Lowongan ${j.approved?'dipublikasikan':j.status==='rejected'?'ditolak':'menunggu verifikasi'}`,body:`${j.title} · ${j.company}`,date:j.date||'',key:'job-'+j.id}));return items.sort((a,b)=>String(b.key).localeCompare(String(a.key)))}
+function renderNotifications(){let items=notificationItems(),read=load('kerjain_read_notifications',[]),el=document.getElementById('notificationList');if(!el)return;el.innerHTML=items.length?items.map(n=>`<div class="notification-item ${read.includes(n.key)?'':'unread'}"><span class="notification-icon">${n.icon}</span><div><b>${esc(n.title)}</b><p>${esc(n.body)}</p><small>${esc(n.date)}</small></div></div>`).join(''):'<div class="empty">Belum ada aktivitas. Aktivitas lamaran dan pengajuan lowongan akan muncul di sini.</div>';let dot=document.getElementById('notificationDot');if(dot)dot.classList.toggle('show',items.some(n=>!read.includes(n.key)))}
+function markNotificationsRead(){localStorage.setItem('kerjain_read_notifications',JSON.stringify(notificationItems().map(n=>n.key)));renderNotifications();toast('Aktivitas ditandai sudah dibaca.')}
+function exportBackup(){let data={app:'KERJAIN',version:4,exportedAt:new Date().toISOString(),jobs,apps,profile,savedJobs};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='cadangan-khakerja-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('Cadangan data berhasil disiapkan.')}
+function importBackup(e){let f=e.target.files?.[0];if(!f)return;if(f.size>5*1024*1024){toast('File cadangan maksimal 5 MB.');e.target.value='';return}let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);if(d.app!=='KERJAIN'||!Array.isArray(d.jobs)||!Array.isArray(d.apps)||!d.profile||typeof d.profile!=='object'||!Array.isArray(d.savedJobs))throw Error('format');if(!confirm('Pulihkan cadangan? Data lokal saat ini akan diganti dengan isi cadangan.'))return;jobs=d.jobs;apps=d.apps;profile=d.profile;savedJobs=d.savedJobs;save();if(localStorage.getItem('khakerja_local_session')){document.body.classList.add('authenticated');document.getElementById('authScreen').classList.add('hide')}if(localStorage.getItem('kerjain_theme_v2')==='dark')document.body.classList.add('dark');categoryMarkup();renderJobs();loadProfile();renderSaved();renderNotifications();updateDashboardStats();restoreServerSession();renderApps();renderNotifications();toast('Cadangan berhasil dipulihkan.')}catch(err){toast('File cadangan tidak valid atau rusak.')}finally{e.target.value=''}};reader.readAsText(f)}
+
+const deadlineInput=document.querySelector('input[name="deadline"]');if(deadlineInput)deadlineInput.min=new Date().toISOString().slice(0,10);
+document.querySelectorAll('.page:not(#beranda)').forEach(page=>{const close=document.createElement('button');close.className='page-close';close.type='button';close.setAttribute('aria-label','Tutup halaman');close.textContent='×';close.addEventListener('click',()=>go('beranda'));page.insertBefore(close,page.firstChild)});if(localStorage.getItem('kerjain_theme_v2')==='dark')document.body.classList.add('dark');categoryMarkup();renderJobs();loadProfile();renderSaved();renderNotifications();updateDashboardStats();restoreServerSession();
+</script>
+</body>
+</html>
